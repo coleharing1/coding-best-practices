@@ -1,0 +1,26 @@
+---
+description: Require worklog updates for meaningful changes
+alwaysApply: true
+---
+
+# Worklog Discipline
+
+When making meaningful project changes, update `WORKLOG.md` before final handoff.
+
+## Update Required For
+
+- Behavior changes (routes, UI flow, runtime behavior)
+- Architecture or implementation pattern changes
+- Process/governance changes (SOPs, policies, rules)
+
+## Entry Expectations
+
+- Read the latest entry number before adding a new entry
+- Add new entries at the top (reverse chronological)
+- Include: Goal, Changes, Notes/decisions, Follow-ups
+- Use real file paths in `Changes`
+- Keep one entry per logical unit of work
+
+## Do Not Skip
+
+If meaningful code/process changed and worklog is stale, stop and add the entry before concluding work.

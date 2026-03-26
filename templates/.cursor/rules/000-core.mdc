@@ -1,0 +1,24 @@
+---
+description: Core project identity and global constraints
+alwaysApply: true
+---
+
+# Core — __PROJECT_NAME__
+
+## Stack
+- Framework: __FRAMEWORK__
+- Language: __LANGUAGE__
+- Styling: __STYLING__
+- Database: __DATABASE__
+- Deployment: __DEPLOYMENT__
+
+## Global Rules
+- Search existing patterns before creating new abstractions.
+- Prefer minimal diffs.
+- Prefer functional/declarative patterns.
+- Prefer explicit, actionable errors.
+- Keep boundaries typed.
+
+## Safety
+- Never run destructive commands without confirmation.
+- Never commit secrets or credentials.

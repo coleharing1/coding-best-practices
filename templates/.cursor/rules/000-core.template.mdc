@@ -1,0 +1,29 @@
+---
+description: Core project identity and global constraints
+alwaysApply: true
+---
+
+# Core -- [Project Name]
+
+## Stack
+
+- [Framework]
+- [Language]
+- [Styling]
+- [Database]
+- [Deployment]
+
+## Global Rules
+
+- Search existing code before creating new files or abstractions.
+- Prefer minimal diffs; avoid cosmetic-only refactors unless requested.
+- Prefer functional/declarative patterns; avoid classes unless required by external SDKs.
+- Prefer explicit, actionable errors over silent fallbacks.
+- Avoid `any` when feasible; keep boundaries typed.
+- Keep files under 500 lines when practical.
+
+## Safety
+
+- Never run destructive commands without confirmation.
+- Never commit secrets, `.env*`, private keys, or credential files.
+- Never modify production config directly.

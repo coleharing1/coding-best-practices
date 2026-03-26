@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "task": "Define or update schema/contracts",
+    "status": "pending"
+  },
+  {
+    "id": 2,
+    "task": "Implement API/server changes",
+    "status": "pending",
+    "depends_on": 1
+  },
+  {
+    "id": 3,
+    "task": "Implement UI integration",
+    "status": "pending",
+    "depends_on": 2
+  },
+  {
+    "id": 4,
+    "task": "Add/adjust tests",
+    "status": "pending",
+    "depends_on": 3
+  },
+  {
+    "id": 5,
+    "task": "Run quality gate and prep commit",
+    "status": "pending",
+    "depends_on": 4
+  }
+]
