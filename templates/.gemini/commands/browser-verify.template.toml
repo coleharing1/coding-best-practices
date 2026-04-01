@@ -1,0 +1,15 @@
+description = "Verify the current browser-visible flow and report exact pass/fail outcomes."
+
+prompt = """
+# Task: Browser Verify
+
+Verify the target browser flow using the correct lane:
+
+1. determine the correct URL and whether to use the user lane or agent lane
+2. open the page
+3. inspect for console or runtime failures
+4. exercise the flow
+5. report exact pass/fail outcomes, screenshots if useful, and the next likely fix path
+
+Do not claim browser verification happened if the flow was not actually opened and checked.
+"""

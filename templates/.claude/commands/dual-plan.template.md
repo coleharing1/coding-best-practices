@@ -29,35 +29,43 @@ Use this structure:
 - **Goal**: [One-sentence desired outcome]
 - **Scope**: [What's in scope]
 - **Out of Scope**: [Explicitly excluded]
+- **Risk Tier**: [T0/T1/T2/T3]
 - **Constraints**: [Performance/security/deadline constraints]
 
-## Technical Approach
-- [Your recommended architecture and patterns]
-- [Key interfaces, contracts, data flow]
-- [Why this approach over alternatives]
+## Current Evidence
+- [Repo findings that matter]
 
-## Phased Implementation
+## Working Assumptions
+- [Assumption]
 
-### Phase 1 — [Name]
-- **Deliverable**: [What this phase produces]
-- **Steps**: [Numbered list]
-- **Acceptance Criteria**: [Testable, binary pass/fail]
-- **Risk**: [What can go wrong + mitigation]
+## Ownership Legend
+- `[Cole]`, `[Codex]`, `[Claude]`, `[Gemini]`, `[Shared]`, `[Gate]`
 
-### Phase 2 — [Name]
+## Blocking Gates
+- [Gate list]
+
+## Implementation Checklist
+
+### Phase 1: [Name]
+#### 1A. [Workstream]
+- [ ] `[Owner]` [step]
+- [ ] `[Owner]` [step]
+#### Phase 1 Verification
+- [ ] `[Owner] [Gate]` [binary criterion]
+
+### Phase 2: [Name]
 [Same structure]
 
-## Test Plan
-- Unit: [What to test]
-- Integration: [What to test]
-- E2E: [What to test]
+## Review Plan
+- [ ] `[Gemini]` [structural review need]
+- [ ] `[Claude]` [logic/security review need]
 
-## Risks and Tradeoffs
-- [Risk/tradeoff 1 → mitigation/rationale]
-- [Any phase needing dual review (auth, payments, schema)]
+## Rollout / Backout
+- [deployment notes]
+- [rollback trigger]
 
-## Estimated Complexity
-- [Low / Medium / High per phase]
+## Definition Of Done
+- [ ] [done item]
 ```
 
 ### Rules
@@ -66,6 +74,7 @@ Use this structure:
 - Be specific about file paths, function names, and data shapes
 - Call out unknowns and assumptions explicitly
 - Flag any phase that should require Gemini + Claude security review
+- Mark human-only login, 2FA, approval, or browser-consent steps explicitly
 
 ### After Writing
 

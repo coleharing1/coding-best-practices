@@ -1,0 +1,10 @@
+---
+description: Production safety and parity rules
+alwaysApply: false
+---
+
+# Prod Safety
+
+- Prefer read-only production inspection by default.
+- Use explicit parity checks before risky releases.
+- Never run undocumented prod-write commands.

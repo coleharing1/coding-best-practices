@@ -67,10 +67,12 @@ Add these files without changing application logic:
 - Include exact runnable commands
 - Include hard constraints (no destructive commands, no secret commits, one phase at a time)
 
-4. `.cursor/rules/000-core.mdc` and `.cursor/rules/050-worklog.mdc`
+4. `.cursor/rules/` and `.claude/commands/` / `.claude/rules/` when relevant
 - Keep rules short and enforce only non-controversial constraints first
+5. Service bootstrap docs when the repo depends on hosted services
+- Add `TESTING_AND_BROWSER_AUTOMATION.md`, runbooks, or a service handoff note before the next browser/auth-heavy task
 
-Use `scripts/bootstrap-project.sh` + `templates/` from this repo when possible.
+Use `workflow/New-Project-Setup-Guide.md` plus the relevant files in `templates/` from this repo when possible.
 
 ---
 
@@ -78,13 +80,13 @@ Use `scripts/bootstrap-project.sh` + `templates/` from this repo when possible.
 
 1. Run a dry run on a small branch:
 - `scripts/review-diff.sh`
-- `scripts/quality-gate.sh --skip-gemini` (if Gemini is not configured yet)
+- `scripts/quality-gate.sh` (or the repo's equivalent if you have not adopted this script yet)
 
 2. Fix command drift:
 - If lint/test/build commands fail due to stale scripts, update commands in `AGENTS.md` and `CLAUDE.md` first.
 
 3. Only then wire CI:
-- Add `.github/workflows/quality-gate.yml`
+- Add `templates/.github/workflows/quality-gate.template.yml` to the target repo as its starting point
 - Keep it non-blocking for one week if CI is currently unstable
 
 ---
@@ -149,7 +151,8 @@ Avoid "rewrite all process docs first." Adopt via real changes.
 - [ ] Baseline commands verified locally
 - [ ] `WORKLOG.md` created with adoption entry
 - [ ] `CLAUDE.md` and `AGENTS.md` populated with real commands
-- [ ] Cursor rules added (`000-core`, `050-worklog`)
+- [ ] Cursor rules added for the current repo realities
+- [ ] Service login / bootstrap path documented if the repo depends on hosted tools
 - [ ] `scripts/review-diff.sh` works in repo
 - [ ] `scripts/quality-gate.sh` runs end-to-end
 - [ ] CI quality-gate workflow added

@@ -398,7 +398,7 @@ Things that apply regardless of project:
 - Always write tests alongside implementation
 - Prefer explicit error handling over silent fallbacks
 - Update WORKLOG.md after meaningful changes
-- When planning, output phased plans to PLAN.md
+- When planning, prefer the numbered plan set in `plans/active/`
 - When in doubt, ask rather than assume
 ```
 

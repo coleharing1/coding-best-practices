@@ -1,0 +1,10 @@
+---
+description: Hosted service bootstrap and login-handoff guidance
+---
+
+# Service Bootstrap
+
+- Front-load service setup that unlocks later AI work.
+- If a service needs login, 2FA, org selection, or consent, plan that handoff explicitly.
+- After the human-only step, finish the remaining configuration immediately.
+- Record project IDs, env names, local artifacts, and verification commands in repo docs.

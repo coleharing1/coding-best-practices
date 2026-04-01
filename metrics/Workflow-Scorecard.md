@@ -1,6 +1,6 @@
 # Workflow Scorecard
 
-> Use this scorecard weekly to measure whether the multi-model workflow is improving speed and quality.
+> Use this scorecard weekly to measure whether the multi-model workflow is improving speed, quality, and repeatability.
 
 ---
 
@@ -22,14 +22,16 @@
 | Escaped defects (7-day) | Bugs found after merge in first 7 days | 0 high severity | True quality outcome |
 | Rework ratio | Rewritten lines / added lines for same feature | <= 0.30 | Detects plan drift and churn |
 | Cost per merged feature | Estimated model spend per merged feature | Stable/downward | Keeps orchestration economically sane |
+| Repeatable actions promoted | Commands/skills/hooks/automations added from real repeated work | Upward trend early, then stable | Turns habits into portable workflow assets |
+| Manual dashboard round-trips | Times a human had to go back into a dashboard because the AI lacked durable access or a handoff runbook | Downward trend | Measures whether startup setup is actually getting more AI-usable |
 
 ---
 
 ## Feature Log Template
 
-| Date | Branch/PR | Feature | Lead Time (hrs) | First-Pass Gate (Y/N) | Findings Accepted | Findings Rejected | Escaped Defects | Est. AI Cost | Notes |
-|---|---|---|---:|---|---:|---:|---:|---:|---|
-| [YYYY-MM-DD] | [branch or PR #] | [name] | [n] | [Y/N] | [n] | [n] | [n] | [$] | [short context] |
+| Date | Branch/PR | Feature | Lead Time (hrs) | First-Pass Gate (Y/N) | Findings Accepted | Findings Rejected | Escaped Defects | Actions Promoted | Dashboard Round-Trips | Est. AI Cost | Notes |
+|---|---|---|---:|---|---:|---:|---:|---:|---:|---:|---|
+| [YYYY-MM-DD] | [branch or PR #] | [name] | [n] | [Y/N] | [n] | [n] | [n] | [n] | [n] | [$] | [short context] |
 
 ---
 
@@ -41,6 +43,8 @@
 - **Median lead time**: [n hours]
 - **First-pass gate success**: [n%]
 - **Escaped defects**: [n]
+- **Repeatable actions promoted**: [n]
+- **Manual dashboard round-trips**: [n]
 - **Average cost per feature**: [$]
 
 ### Interpretation
@@ -48,6 +52,8 @@
 - If lead time increases and first-pass gate drops, tighten planning quality in Phase 1.
 - If findings accepted < 20%, improve reviewer prompts or reduce over-reviewing.
 - If escaped defects rise, add missing tests and strengthen failure playbooks.
+- If dashboard round-trips rise, tighten Phase 0.5 service setup and handoff docs.
+- If action promotion stays flat while the same chores recur, add commands/skills/hooks before adding more people or more prompts.
 
 ### Next Week Process Adjustments
 
@@ -62,4 +68,6 @@
 - Lead time: derive from worklog start time and merge time.
 - Gate success: first execution of `scripts/quality-gate.sh` per feature.
 - Findings: count only substantive code findings, not style-only nits.
+- Actions promoted: count only reusable artifacts committed to the repo, not one-off copied prompts.
+- Dashboard round-trips: count each extra human dashboard visit caused by missing setup, missing access, or missing runbook guidance.
 - Cost: estimate from plan dashboards or session summaries.

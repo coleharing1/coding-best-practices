@@ -1,0 +1,7 @@
+interface:
+  display_name: "Service Bootstrap"
+  short_description: "Database, Vercel, and browser-login setup handoff workflow"
+  brand_color: "#2563EB"
+  default_prompt: "Run the service bootstrap workflow using the repo context files and runbooks"
+policy:
+  allow_implicit_invocation: true

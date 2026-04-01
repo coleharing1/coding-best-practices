@@ -1,0 +1,12 @@
+---
+description: Require debug journal updates for real investigations
+alwaysApply: false
+---
+
+# Debug Journal
+
+When a task requires significant investigation, false leads, or outage analysis:
+
+- update `DEBUG-JOURNAL.md`
+- capture checks run, findings, and root cause
+- keep `WORKLOG.md` focused on landed change truth

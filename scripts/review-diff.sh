@@ -9,14 +9,14 @@ Review a git diff with Gemini CLI using the default architectural review prompt.
 
 Options:
   --staged               Review staged diff only (default: unstaged diff)
-  --model MODEL          Gemini model (default: gemini-3-pro-preview)
-  --prompt-file PATH     Read prompt text from file instead of built-in prompt
+  --model MODEL          Gemini model (default: gemini-3.1-pro-preview)
+  --prompt-file PATH     Read prompt text from file instead of the repo default
   --help                 Show this help
 
 Examples:
   scripts/review-diff.sh
   scripts/review-diff.sh --staged
-  scripts/review-diff.sh --model gemini-3-pro-preview
+  scripts/review-diff.sh --model gemini-3.1-pro-preview
 USAGE
 }
 
@@ -33,8 +33,8 @@ if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 fi
 
 MODE="unstaged"
-MODEL="gemini-3-pro-preview"
-PROMPT_FILE=""
+MODEL="gemini-3.1-pro-preview"
+PROMPT_FILE="prompts/review-diff-gemini.md"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -83,14 +83,13 @@ if [[ -z "$DIFF_CONTENT" ]]; then
   exit 0
 fi
 
-if [[ -n "$PROMPT_FILE" ]]; then
-  if [[ ! -f "$PROMPT_FILE" ]]; then
-    echo "Error: prompt file not found: $PROMPT_FILE" >&2
-    exit 1
-  fi
+if [[ -n "$PROMPT_FILE" && -f "$PROMPT_FILE" ]]; then
   PROMPT="$(cat "$PROMPT_FILE")"
 else
-  PROMPT=$'Review this diff for:\n- Structural issues (functions doing too many things, missing separation of concerns)\n- Cross-file invariant violations\n- Race conditions or concurrency issues\n- Patterns that deviate from the rest of the codebase\nBe specific: cite file names and line ranges.'
+  if [[ -n "$PROMPT_FILE" ]]; then
+    echo "Prompt file not found at $PROMPT_FILE; falling back to built-in review prompt."
+  fi
+  PROMPT=$'Review this diff for:\n- Structural issues (functions doing too many things, missing separation of concerns)\n- Cross-file invariant violations\n- Race conditions or concurrency issues\n- Error-handling gaps and failure-state behavior\n- Patterns that deviate from the rest of the codebase\nBe specific: cite file names and line ranges.'
 fi
 
 echo "Running Gemini review (${MODE} diff) with model: ${MODEL}"

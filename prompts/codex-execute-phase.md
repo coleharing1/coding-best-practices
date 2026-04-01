@@ -1,4 +1,4 @@
-You are implementing [PHASE_NAME] from PLAN.md in [PROJECT_NAME].
+You are implementing [PHASE_NAME] from `plans/active/Plan-XXX-Final.md` in [PROJECT_NAME].
 
 Execution contract:
 1. Implement only this phase. Do not skip ahead.

@@ -1,0 +1,13 @@
+name: health-check
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check public health endpoint
+        run: curl -fL "${{ secrets.HEALTH_CHECK_URL }}"

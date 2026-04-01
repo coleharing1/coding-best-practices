@@ -1,0 +1,7 @@
+interface:
+  display_name: "Browser Verify"
+  short_description: "End-to-end browser-flow verification using the documented user or agent lane"
+  brand_color: "#0F766E"
+  default_prompt: "Run the browser verification workflow using the repo browser docs and current target flow"
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,10 @@
+---
+description: Schema-sync discipline for migrations and contracts
+alwaysApply: false
+---
+
+# Schema Sync
+
+- When schema changes, update every documented sync layer.
+- Prefer checked-in migrations over ad hoc database edits.
+- Run type/parity/contract checks before concluding schema work.

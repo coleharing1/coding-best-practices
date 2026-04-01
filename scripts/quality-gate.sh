@@ -10,6 +10,7 @@ Runs the AI quality gate in a deterministic order.
 Options:
   --skip-review          Skip Gemini review step
   --skip-gemini          Alias for --skip-review
+  --risk-tier TIER       Annotate the run as T0, T1, T2, or T3 (default: T1)
   --ui-changed           Force UI gate (E2E) on
   --types-changed        Force type gate (tsc --noEmit) on
   --base-url URL         Override PLAYWRIGHT_BASE_URL (default: http://127.0.0.1:3000)
@@ -68,27 +69,46 @@ matches_any() {
 }
 
 run_secret_scan() {
-  local scanner
-  local pattern='API_KEY|SECRET|TOKEN|PRIVATE KEY|BEGIN .*PRIVATE KEY'
+  local pattern='API_KEY|SECRET|TOKEN|PRIVATE KEY|BEGIN .*PRIVATE KEY|SERVICE_ROLE_KEY'
+  local diff_data
+  local staged_data
+  local diff_exit=1
+  local staged_exit=1
+
   echo
   echo "[secret-scan] Scanning diff for sensitive tokens"
 
-  if has_cmd rg; then
-    scanner="rg"
-  else
-    scanner="grep -E"
+  diff_data="$(git diff -- . ':(exclude)scripts/quality-gate.sh')"
+  staged_data="$(git diff --cached -- . ':(exclude)scripts/quality-gate.sh')"
+
+  if [[ -z "$diff_data" && -z "$staged_data" ]]; then
+    echo "No diff content to scan after exclusions."
+    return 0
   fi
 
   set +e
-  if [[ "$scanner" == "rg" ]]; then
-    git diff | rg -n "$pattern"
+  if has_cmd rg; then
+    if [[ -n "$diff_data" ]]; then
+      printf '%s\n' "$diff_data" | rg -n "$pattern"
+      diff_exit=$?
+    fi
+    if [[ -n "$staged_data" ]]; then
+      printf '%s\n' "$staged_data" | rg -n "$pattern"
+      staged_exit=$?
+    fi
   else
-    git diff | grep -nE "$pattern"
+    if [[ -n "$diff_data" ]]; then
+      printf '%s\n' "$diff_data" | grep -nE "$pattern"
+      diff_exit=$?
+    fi
+    if [[ -n "$staged_data" ]]; then
+      printf '%s\n' "$staged_data" | grep -nE "$pattern"
+      staged_exit=$?
+    fi
   fi
-  local scan_exit=$?
   set -e
 
-  if [[ $scan_exit -eq 0 ]]; then
+  if [[ $diff_exit -eq 0 || $staged_exit -eq 0 ]]; then
     echo "Potential secret-like pattern found in diff. Review before commit." >&2
     exit 1
   fi
@@ -116,6 +136,7 @@ SKIP_REVIEW=false
 FORCE_UI=false
 FORCE_TYPES=false
 BASE_URL="http://127.0.0.1:3000"
+RISK_TIER="T1"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -126,6 +147,14 @@ while [[ $# -gt 0 ]]; do
     --skip-gemini)
       SKIP_REVIEW=true
       shift
+      ;;
+    --risk-tier)
+      RISK_TIER="${2:-}"
+      if [[ ! "$RISK_TIER" =~ ^T[0-3]$ ]]; then
+        echo "Error: --risk-tier must be T0, T1, T2, or T3." >&2
+        exit 1
+      fi
+      shift 2
       ;;
     --ui-changed)
       FORCE_UI=true
@@ -165,6 +194,9 @@ echo "[state] Branch + working tree"
 git status --short --branch
 
 echo
+echo "[state] Risk tier: $RISK_TIER"
+
+echo
 echo "[state] Changed files"
 CHANGED_FILES="$(collect_changed_files || true)"
 if [[ -z "$CHANGED_FILES" ]]; then
@@ -200,6 +232,11 @@ if [[ "$SKIP_REVIEW" == false ]]; then
 else
   echo
   echo "[review] Skipped by flag (--skip-review)."
+fi
+
+if [[ "$RISK_TIER" == "T3" ]]; then
+  echo
+  echo "[review] T3 change detected. Run a separate logic/security review and capture rollback notes."
 fi
 
 run_cmd "lint" "$LINT_CMD"

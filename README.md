@@ -1,122 +1,145 @@
 # Coding Best Practices
 
-> Personal knowledge base for how I (Cole Haring) use AI coding tools across projects. Not a codebase -- a reference library.
+> Personal operating system for how Cole Haring likes to build with AI. This is not just prompt storage. It is a repo-level workflow library for planning, building, reviewing, debugging, and keeping project context durable.
+
+## Current Status
+
+This repo is now organized around the patterns that show up repeatedly in your live projects:
+
+- plan-first execution with dual plans and a synthesized final plan
+- durable repo memory through `WORKLOG.md`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, plans, and optional knowledgebases
+- short context files that act as maps into deeper repo docs instead of trying to hold the whole truth alone
+- risk-tiered review and deterministic quality gates
+- browser QA as a first-class workflow, not a last-minute scramble
+- environment parity and guarded production workflows
+- mock mode and operator runbooks for systems that touch real services
+- a portable repeatable-actions layer through commands, skills, hooks, rules, and automations
+- archetype starter kits for the project shapes you build most often
+
+The canonical copy-ready assets in `templates/` now use the `*.template.*` naming pattern. Those files are the source of truth.
 
 ## The Workflow (TL;DR)
 
+```text
+Phase 0  Cursor          Bootstrap repo, paste research, connect GitHub, create context files
+Phase 0.5 Services       Front-load DB/Vercel/browser auth so the AI can keep going after your login step
+Phase 0.6 Workflow OS    Promote repeated prompts into commands, skills, hooks, and bounded automations
+Phase 0.75 Brownfield    Audit existing repo reality, commands, risk map, and known sharp edges
+Phase 1a Claude Code     Write Plan-XXX-CLAUDE.md as an owner-tagged checklist
+Phase 1b Codex           Write Plan-XXX-Codex.md from the same prompt
+Phase 1c Claude Code     Compare both and synthesize Plan-XXX-Final.md
+Phase 1d You             Review and adjust the final plan
+  -> UI  Claude first    For greenfield UI, let Opus set the look, then let Codex refine
+Phase 2  Codex           Implement one phase at a time, run checks, fix failures, update docs
+Phase 3  Review          Gemini for structural review, Claude for high-risk logic/security review
+Phase 4  Quality Gate    Lint, test, build, E2E/type gates, secret scan, worklog/doc updates
+Phase 5  Push + Ops      Push intentionally, run parity/health checks, let async maintenance tools help
 ```
-Phase 0  Cursor          Bootstrap project, paste research, connect GitHub, set up context files
-Phase 1a Claude Code     /project:dual-plan → Claude writes Plan-XXX-CLAUDE.md
-Phase 1b Codex           Same prompt → Codex writes Plan-XXX-Codex.md
-Phase 1c Claude Code     /project:compare-plans → synthesize Plan-XXX-Final.md
-Phase 1d You             Review and finalize the plan
-  -> UI  Claude Code     For new apps: Opus writes the initial UI, Codex refines until the look is dialed in.
-Phase 2  Codex           Implement from Plan-XXX-Final.md. One phase at a time, run tests, fix failures.
-Phase 3  Gemini CLI      Pre-commit review. Pipe git diff to Gemini for architectural/structural feedback.
-Phase 4  Quality Gate    Lint, test, build, E2E, secret scan, worklog update. No exceptions.
-Phase 5  Jules           Push to GitHub. Scheduled agents run overnight. Review PRs each morning.
-```
-
-**Primary tools:** Claude Code Mac (Max) + Codex Mac (Max)
-**Secondary:** Cursor (Ultra), Gemini CLI, Jules (free tier)
 
 ## Project Structure
 
-```
+```text
 ├── README.md
-├── scripts/                               # Automation scripts for review/gates
+├── WORKLOG.md
+├── scripts/
 │   ├── review-diff.sh
 │   └── quality-gate.sh
-├── templates/                             # Copy-ready bootstrap templates
-│   ├── WORKLOG.template.md
-│   ├── CLAUDE.template.md
-│   ├── CLAUDE.local.template.md           # Personal overrides (gitignored)
+├── templates/
+│   ├── README.md
 │   ├── AGENTS.template.md
+│   ├── CLAUDE.template.md
+│   ├── GEMINI.template.md
+│   ├── CLAUDE.local.template.md
 │   ├── PLAN.template.md
+│   ├── WORKLOG.template.md
+│   ├── DEBUG-JOURNAL.template.md
+│   ├── TESTING_AND_BROWSER_AUTOMATION.template.md
 │   ├── tasks.template.json
-│   ├── plans/                             # Dual-plan workflow templates
-│   │   ├── active/                        #   Current feature plans
-│   │   ├── archive/                       #   Completed plans (decision history)
-│   │   └── README.md                      #   Dual-plan workflow quick reference
-│   ├── .claude/                           # Claude Code folder templates
-│   │   ├── settings.template.json         #   Permissions (allow/deny)
-│   │   ├── commands/                      #   Custom slash commands
-│   │   │   ├── review.template.md         #     /project:review
-│   │   │   ├── fix-issue.template.md      #     /project:fix-issue
-│   │   │   ├── dual-plan.template.md      #     /project:dual-plan
-│   │   │   ├── compare-plans.template.md  #     /project:compare-plans
-│   │   │   ├── archive-plan.template.md   #     /project:archive-plan
-│   │   │   ├── plan-feature.template.md   #     /project:plan-feature
-│   │   │   ├── quality-gate.template.md   #     /project:quality-gate
-│   │   │   └── codex-handoff.template.md  #     /project:codex-handoff
-│   │   ├── rules/                         #   Modular path-scoped instructions
-│   │   │   ├── code-style.template.md
-│   │   │   ├── testing.template.md
-│   │   │   ├── api-conventions.template.md
-│   │   │   └── security.template.md
-│   │   ├── skills/                        #   Auto-invoked workflows
-│   │   │   ├── security-review/
-│   │   │   └── deploy/
-│   │   └── agents/                        #   Specialized subagent personas
-│   │       ├── code-reviewer.template.md
-│   │       └── security-auditor.template.md
-│   └── .cursor/rules/*.template.mdc
-├── metrics/
-│   └── Workflow-Scorecard.md
-├── workflow/                              # Core workflow playbooks
+│   ├── knowledgebase/
+│   ├── runbooks/
+│   ├── plans/
+│   ├── archetypes/
+│   ├── .github/workflows/
+│   ├── .claude/
+│   ├── .cursor/
+│   ├── .gemini/
+│   └── .agents/skills/
+├── workflow/
 │   ├── Multi-Model-Workflow.md
 │   ├── New-Project-Setup-Guide.md
-│   ├── Claude-Code-Folder-Guide.md       # .claude/ folder anatomy & setup
-│   ├── Dual-Plan-Workflow.md             # Competing plans from Claude + Codex
+│   ├── Repeatable-Actions-Stack.md
+│   ├── Repo-Operating-System.md
+│   ├── Worklog-2.0.md
+│   ├── Browser-QA-Playbook.md
+│   ├── AI-First-Service-Setup-and-Login-Handoff.md
+│   ├── Cursor-Workflow-Guide.md
+│   ├── Gemini-CLI-Workflow-Guide.md
+│   ├── Environment-Parity-and-Prod-Safety.md
+│   ├── Schema-Sync-Recipes.md
+│   ├── Mock-Mode-and-Fallbacks.md
+│   ├── Donor-Repo-Adaptation-Guide.md
+│   ├── Runbook-Patterns.md
+│   ├── Starter-Kits.md
+│   ├── Dual-Plan-Workflow.md
 │   ├── AI-QUALITY-GATE-SOP.md
 │   ├── Quality-Gate-Profiles.md
 │   ├── Failure-Playbooks.md
-│   ├── Jules-Setup-Guide.md
+│   ├── Risk-Tier-Matrix.md
 │   ├── Brownfield-Adoption-Guide.md
 │   ├── Workflow-Metrics.md
-│   ├── Risk-Tier-Matrix.md
 │   ├── Source-Refresh-Policy.md
 │   └── adjacent-tools/
-│       └── nano-banana-pro-mcp-guide.md  # Optional/non-core tool guide
-└── research/                              # Inputs that informed the workflow
-    ├── Research-1.md
-    ├── Research-2-Multi-Model-Vibe-Coding.md
-    ├── Gemini-R2-Opinion.md
-    └── Grok4.2-R2-Opinion.md
+├── metrics/
+│   ├── Workflow-Scorecard.md
+│   └── weekly-metrics.csv.template
+└── research/
 ```
 
 ## How to Use
 
 | Situation | Open This |
 |---|---|
-| Starting a new project | `workflow/New-Project-Setup-Guide.md` + `templates/README.md` |
-| Setting up .claude/ folder | `workflow/Claude-Code-Folder-Guide.md` + `templates/.claude/` |
-| Planning a new feature | `workflow/Dual-Plan-Workflow.md` + `templates/plans/` |
-| Day-to-day "which tool do I use?" | `workflow/Multi-Model-Workflow.md` |
+| Starting a new repo | `workflow/New-Project-Setup-Guide.md` + `workflow/Starter-Kits.md` |
+| Setting up DB / Vercel / login handoff | `workflow/AI-First-Service-Setup-and-Login-Handoff.md` |
+| Designing repeatable commands, skills, hooks, or automations | `workflow/Repeatable-Actions-Stack.md` |
+| Setting up Cursor rules, commands, and Bugbot | `workflow/Cursor-Workflow-Guide.md` |
+| Setting up Gemini CLI context, commands, hooks, and skills | `workflow/Gemini-CLI-Workflow-Guide.md` |
+| Designing the repo operating system | `workflow/Repo-Operating-System.md` |
+| Setting up core templates | `templates/README.md` |
+| Planning a non-trivial feature | `workflow/Dual-Plan-Workflow.md` + `templates/plans/README.md` |
+| Writing better worklogs | `workflow/Worklog-2.0.md` + `templates/WORKLOG.template.md` |
+| Setting up browser QA | `workflow/Browser-QA-Playbook.md` + `templates/TESTING_AND_BROWSER_AUTOMATION.template.md` |
+| Hardening prod/dev safety | `workflow/Environment-Parity-and-Prod-Safety.md` |
+| Handling schema changes safely | `workflow/Schema-Sync-Recipes.md` |
+| Designing mock/fallback behavior | `workflow/Mock-Mode-and-Fallbacks.md` |
+| Porting from an existing donor repo | `workflow/Donor-Repo-Adaptation-Guide.md` |
+| Building operator docs/runbooks | `workflow/Runbook-Patterns.md` + `templates/runbooks/` |
 | About to commit/push | `scripts/quality-gate.sh` + `workflow/AI-QUALITY-GATE-SOP.md` |
-| Different stack (not standard npm flow) | `workflow/Quality-Gate-Profiles.md` |
-| If a workflow failure happens | `workflow/Failure-Playbooks.md` |
-| Setting up Jules on a repo | `workflow/Jules-Setup-Guide.md` |
-| Adopting this in an existing repo | `workflow/Brownfield-Adoption-Guide.md` |
-| Tracking process quality over time | `metrics/Workflow-Scorecard.md` + `workflow/Workflow-Metrics.md` |
-| Researching tools or approaches | `research/` folder |
-| Optional adjacent tooling | `workflow/adjacent-tools/` |
+| Recovering from workflow drift | `workflow/Failure-Playbooks.md` |
+| Tracking whether the process is helping | `metrics/Workflow-Scorecard.md` + `workflow/Workflow-Metrics.md` |
 
-## Context Files Created Per Project
+## Core Repo Assets Per Project
 
-| File | Read By | Purpose |
-|---|---|---|
-| `WORKLOG.md` | All tools | Reverse-chronological change log with intent, decisions, follow-ups |
-| `CLAUDE.md` | Claude Code | Persistent project memory -- stack, rules, workflow role |
-| `CLAUDE.local.md` | Claude Code | Personal overrides (gitignored) |
-| `.claude/settings.json` | Claude Code | Permission allow/deny rules |
-| `.claude/commands/` | Claude Code | Custom slash commands (review, plan, gate, fix-issue, codex-handoff) |
-| `.claude/rules/` | Claude Code | Modular, path-scoped instruction files |
-| `.claude/skills/` | Claude Code | Auto-invoked workflows (security review, deploy checklist) |
-| `.claude/agents/` | Claude Code | Specialized subagent personas (code reviewer, security auditor) |
-| `AGENTS.md` | Codex | Builder instructions -- commands, constraints, role |
-| `.cursor/rules/000-core.mdc` | Cursor | Project identity and global constraints |
-| `.cursor/rules/050-worklog.mdc` | Cursor | Enforce worklog discipline |
-| `plans/active/` | Claude Code, Codex | Competing plans (CLAUDE + Codex) and synthesized Final plan |
-| `plans/archive/` | Everyone | Completed plan sets — decision history, never delete |
-| `tasks.json` | Claude Code, Codex | Optional task queue for phased implementation |
+| Asset | Purpose |
+|---|---|
+| `README.md` | Current product truth, setup, key paths, known limitations |
+| `WORKLOG.md` | Durable implementation/change memory |
+| `CLAUDE.md` | Planner/reviewer context for Claude Code |
+| `AGENTS.md` | Builder instructions for Codex |
+| `GEMINI.md` | Gemini CLI context and reviewer/workflow instructions when Gemini is in the loop |
+| `plans/active/` + `plans/archive/` | Decision history and execution source of truth |
+| `DEBUG-JOURNAL.md` | Investigation memory for bugs, dead ends, and root causes |
+| `TESTING_AND_BROWSER_AUTOMATION.md` | One-stop browser/testing quick reference |
+| `knowledgebase/` | Stable business, architecture, and decision context for larger systems |
+| `knowledgebase/10-implementation-checklist.md` | Project-level owner-tagged execution checklist and gate tracker |
+| `runbooks/` | Operator-facing procedures for auth, onboarding, incidents, and service setup |
+| `.cursor/commands/`, `.claude/commands/`, `.gemini/commands/`, `.agents/skills/` | Repeatable action surfaces that turn stable prompts into reusable workflow assets |
+
+## Best-Fit Project Archetypes
+
+This repo now includes starter kits for the project shapes you keep returning to:
+
+- `analytics-warehouse` -- multi-tenant dashboards, modeled marts, tenant scoping, warehouse health
+- `dual-stack-platform` -- Python/Next or similar split-stack apps with API/schema sync
+- `internal-ops-dashboard` -- workflow-heavy internal tools with queues, smoke tests, and mock mode
+- `ai-media-saas` -- AI generation products with queues, parity checks, background jobs, and operator controls

@@ -4,13 +4,9 @@ description: Run the full pre-commit quality gate
 
 ## Quality Gate — Pre-Commit Check
 
-Run all checks sequentially. Stop and fix on first failure.
+Prefer the repo script so review, conditional gates, and secret scan stay consistent.
 
-!`npm run lint 2>&1 || echo "GATE FAILED: lint"`
-
-!`npm run test -- --run 2>&1 || echo "GATE FAILED: tests"`
-
-!`npm run build 2>&1 || echo "GATE FAILED: build"`
+!`scripts/quality-gate.sh --risk-tier T2 2>&1 || echo "GATE FAILED"`
 
 ## Post-Gate
 

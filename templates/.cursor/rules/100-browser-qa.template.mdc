@@ -1,0 +1,11 @@
+---
+description: Browser QA and Playwright workflow guidance
+alwaysApply: false
+---
+
+# Browser QA
+
+- Use the documented browser path for this repo.
+- Prefer isolated Playwright or a documented auth-bypass copy when normal auth blocks agent QA.
+- Capture screenshots/traces on failures when available.
+- When browser login is required, use the handoff pattern: agent opens page, user logs in, agent resumes.

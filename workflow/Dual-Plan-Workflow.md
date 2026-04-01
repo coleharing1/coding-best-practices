@@ -1,212 +1,160 @@
 # Dual-Plan Workflow
 
-> Get competing plans from Claude Code and Codex, compare them, then synthesize a Final plan before implementation. Two perspectives catch more than one.
+> Claude and Codex plan independently. Claude then synthesizes the Final checklist that Codex implements.
 
 ---
 
-## Why Dual Planning
+## Why This Works
 
-Single-model planning has blind spots. Claude Code (Opus) is strong at architecture and risk analysis but can over-engineer. Codex is strong at practical, buildable steps but can under-spec edge cases. Having both plan independently and then comparing produces a Final plan that is:
-
-- **More robust** — risks caught by one model that the other missed
-- **More practical** — implementation steps validated by the model that will build it
-- **Better scoped** — two independent scope assessments surface disagreements early
-
----
+- Claude is better at architecture, risk framing, and missing edge cases.
+- Codex is better at buildable sequencing, concrete file paths, and execution realism.
+- The comparison step catches blind spots before code exists.
 
 ## Folder Structure
 
-```
+```text
 plans/
-├── active/                        # Plans for the current feature
-│   ├── Plan-001-CLAUDE.md         # Claude Code's independent plan
-│   ├── Plan-001-Codex.md          # Codex's independent plan
-│   └── Plan-001-Final.md          # Synthesized plan → gets implemented
-└── archive/                       # Completed plans (historical record)
-    ├── Plan-000-CLAUDE.md
-    ├── Plan-000-Codex.md
-    └── Plan-000-Final.md
+├── active/
+│   ├── Plan-001-CLAUDE.md
+│   ├── Plan-001-Codex.md
+│   └── Plan-001-Final.md
+└── archive/
 ```
 
-**Naming:** `Plan-XXX-[SOURCE].md`
-- `XXX` = sequential number (000, 001, 002...)
-- `SOURCE` = `CLAUDE`, `Codex`, or `Final`
+Only one active plan set at a time.
 
-**Active vs. Archive:**
-- `active/` holds the plans for the feature currently being worked on (only one set at a time)
-- `archive/` holds all completed plan sets — never delete these, they're your decision history
+## Required Shape Of A Good Plan
 
----
+Every plan should be:
 
-## The Workflow Step by Step
+- a checklist, not just narrative
+- explicit about scope and constraints
+- tagged with owners
+- explicit about blockers and gates
+- explicit about verification
 
-### Step 1: Write the Planning Prompt
+Recommended owner tags:
 
-Write one clear feature description that both tools will receive. Include:
-- What the feature should do (user-facing behavior)
-- Any technical constraints (stack, performance, backwards compatibility)
-- What's explicitly out of scope
+- `[Cole]`
+- `[Codex]`
+- `[Claude]`
+- `[Gemini]`
+- `[Shared]`
+- `[Gate]`
 
-You can write this once and paste it into both tools, or keep it in a scratch file.
+## Workflow
+
+### Step 1: Write One Prompt
+
+Give both tools the same feature prompt.
+
+Include:
+
+- desired user-facing behavior
+- technical constraints
+- what is out of scope
+- known repo realities
 
 ### Step 2: Claude Writes Its Plan
 
-In **Claude Code**, run:
+Claude writes `plans/active/Plan-XXX-CLAUDE.md`.
 
-```
-/project:dual-plan [feature-name]
-```
+Best things for Claude to catch:
 
-Or paste your planning prompt directly. Claude writes its plan to `plans/active/Plan-XXX-CLAUDE.md`.
-
-Claude's plan will emphasize:
-- Architecture decisions with rationale
-- Risk analysis and mitigation per phase
-- Security and edge case considerations
-- Interfaces and contracts
+- architecture shape
+- risk areas
+- missing failure states
+- human-only decisions or approvals
 
 ### Step 3: Codex Writes Its Plan
 
-In **Codex**, paste the same planning prompt along with:
+Codex writes `plans/active/Plan-XXX-Codex.md`.
 
-```
-Write your plan to plans/active/Plan-XXX-Codex.md
-```
+Best things for Codex to catch:
 
-Or use the prompt template from `prompts/codex-plan-feature.md`.
+- execution order
+- concrete file paths
+- verification commands
+- overbuilt phases
 
-Codex's plan will emphasize:
-- Practical step-by-step implementation
-- Concrete file paths and function signatures
-- Build/test commands for each phase
-- Minimal-diff integration with existing code
+### Step 4: Claude Compares Both
 
-### Step 4: Compare and Synthesize
+Claude should identify:
 
-Back in **Claude Code**, run:
+1. agreements
+2. important disagreements
+3. good ideas unique to one plan
+4. gaps in both plans
 
-```
-/project:compare-plans
-```
+### Step 5: Claude Synthesizes The Final Plan
 
-Claude reads both plans and produces:
-1. **Agreement** — where both plans align
-2. **Divergence** — where they disagree, with assessment of which is stronger
-3. **Unique strengths** — ideas from one plan worth keeping
-4. **Gaps** — things neither plan covered
-5. **Draft Final plan** — `Plan-XXX-Final.md` synthesizing the best of both
+Claude writes `plans/active/Plan-XXX-Final.md`.
 
-### Step 5: Review and Finalize
+The Final plan should preserve:
 
-Read `Plan-XXX-Final.md`. This is your decision point:
-- Edit anything you disagree with
-- Resolve any flagged open decisions
-- Confirm the phase ordering and acceptance criteria
+- owner tags
+- blocking gates
+- verification criteria
+- explicit human login/approval steps
 
-The Final plan is the single source of truth for implementation.
+### Step 6: You Review It
 
-### Step 6: Implement from Final Plan
+Use this as the decision point for:
 
-Hand off `Plan-XXX-Final.md` to **Codex** for implementation:
+- scope trimming
+- reordering
+- confirming human-only steps
+- accepting or changing the gates
 
-```
-Implement Phase 1 from plans/active/Plan-XXX-Final.md
-```
+### Step 7: Codex Implements It
 
-Or use `/project:codex-handoff` in Claude Code to format the handoff.
+Codex builds from the Final checklist one phase at a time.
 
-Codex implements one phase at a time, runs tests, reports back.
+### Step 8: Archive It
 
-### Step 7: Archive After Completion
+After the feature is shipped and verified, move the full plan set to `plans/archive/`.
 
-When all phases are implemented and the quality gate passes, archive the plans:
+## Checklist Format
 
-In **Claude Code**, run:
-
-```
-/project:archive-plan
-```
-
-This moves all `Plan-XXX-*.md` files from `active/` to `archive/`.
-
----
-
-## How This Fits the Multi-Model Workflow
-
-The dual-plan workflow replaces the single-plan Phase 1. Here's how the full lifecycle now looks:
-
-```
-Phase 0   Cursor          Bootstrap project, context files, plans/ folder
-Phase 1a  Claude Code     /project:dual-plan → writes Plan-XXX-CLAUDE.md
-Phase 1b  Codex           Same prompt → writes Plan-XXX-Codex.md
-Phase 1c  Claude Code     /project:compare-plans → writes Plan-XXX-Final.md
-Phase 1d  You             Review and finalize the plan
-Phase 2   Codex           Implement from Plan-XXX-Final.md, one phase at a time
-Phase 3   Gemini CLI      Pre-commit review of the diff
-Phase 4   Quality Gate    Lint, test, build, E2E, secret scan
-Phase 5   Jules           Push to GitHub, overnight agents
-          Claude Code     /project:archive-plan → move plans to archive/
-```
-
----
-
-## Commands Reference
-
-| Command | Tool | What It Does |
-|---|---|---|
-| `/project:dual-plan [feature]` | Claude Code | Claude writes its plan to `plans/active/` |
-| `prompts/codex-plan-feature.md` | Codex | Prompt template for Codex to write its plan |
-| `/project:compare-plans` | Claude Code | Reads both plans, produces comparison + draft Final |
-| `/project:archive-plan` | Claude Code | Moves active plans to `plans/archive/` |
-| `/project:codex-handoff [phase]` | Claude Code | Formats a phase from Final plan for Codex |
-
----
-
-## Plan Format
-
-Both Claude and Codex use the same format for consistency:
+Use this shape:
 
 ```markdown
-# Plan XXX — [Feature Name] ([Source])
+# Plan XXX -- [Feature Name] ([Source])
 
 ## Context
-- **Goal**: [One-sentence desired outcome]
-- **Scope**: [In scope]
-- **Out of Scope**: [Explicitly excluded]
-- **Constraints**: [Performance/security/deadline constraints]
+- Goal
+- Scope
+- Out of Scope
+- Risk Tier
+- Constraints
 
-## Technical Approach
-- [Recommended architecture and patterns]
-- [Key interfaces, contracts, data flow]
-- [Why this approach over alternatives]
+## Current Evidence
+- [repo findings]
 
-## Phased Implementation
+## Working Assumptions
+- [assumption]
 
-### Phase 1 — [Name]
-- **Deliverable**: [What this phase produces]
-- **Steps**: [Numbered list]
-- **Acceptance Criteria**: [Testable, binary pass/fail]
-- **Risk**: [What can go wrong + mitigation]
+## Ownership Legend
+- `[Cole]` ...
+- `[Codex]` ...
+- `[Claude]` ...
+- `[Shared]` ...
+- `[Gate]` ...
 
-## Test Plan
-- Unit / Integration / E2E / Negative cases
+## Blocking Gates
+| Gate | Must Be Complete Before | Required Outcome |
 
-## Risks and Tradeoffs
-- [Risk → mitigation]
-
-## Estimated Complexity
-- [Low / Medium / High per phase]
+## Implementation Checklist
+### Phase 1: [Name]
+#### 1A. [Workstream]
+- [ ] `[Owner]` [step]
+- [ ] `[Owner]` [step]
+#### Phase 1 Verification
+- [ ] `[Owner] [Gate]` [binary result]
 ```
-
-The **Final plan** adds a `## Synthesis Notes` section at the top explaining what came from which plan and why.
-
----
 
 ## Tips
 
-- **Don't bias the prompt.** Give both tools the same information. Don't tell Codex what Claude said or vice versa until the comparison step.
-- **Disagreements are valuable.** When the two plans diverge, that's where the interesting architectural decisions live. Pay attention to those sections.
-- **The Final plan is yours.** Claude drafts it, but you own it. Edit freely.
-- **Keep archive plans.** They're a decision log. When you wonder "why did we build it this way?", the archived plans have the reasoning.
-- **One active set at a time.** Don't start planning the next feature until the current one is archived. This prevents confusion about which plan is active.
-- **Plan numbering is global.** Plan-000, Plan-001, Plan-002 across all features, not restarted per feature. Check `plans/archive/` for the latest number.
+- Do not let Codex read Claude's plan before writing its own.
+- Do not hide login, 2FA, approval, or browser-consent work inside vague "manual setup" bullets.
+- The Final plan should read like something you can execute directly, not something you still have to translate.

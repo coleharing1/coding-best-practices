@@ -2,135 +2,82 @@
 
 > Fast recovery procedures for common multi-model workflow failures.
 
----
-
-## 1) Context Rot in Long Sessions
+## 1) Context Rot In Long Sessions
 
 **Trigger**
-- Agent starts ignoring constraints, repeats failed patterns, or edits unrelated files.
+- the agent starts ignoring constraints, repeating failed patterns, or touching unrelated files
 
-**Immediate Actions**
-1. Stop current session.
-2. Capture latest stable state in `WORKLOG.md`.
-3. Start a fresh session with minimal context: goal, constraints, changed files, and next phase only.
-
-**Recovery Checklist**
-1. Regenerate or tighten `PLAN.md` for the current phase.
-2. Re-run only required tests for touched files first.
-3. Resume full gate once focused tests pass.
-
-**Prevention**
-1. Keep sessions phase-scoped.
-2. Reset sessions after major milestones.
-3. Prefer shared files (`PLAN.md`, `tasks.json`) over long conversational history.
-
----
+**Immediate Response**
+1. stop the session
+2. capture stable intent in `WORKLOG.md`
+3. restart with only goal, constraints, touched files, and next phase
 
 ## 2) Quality Gate Failure Loop
 
 **Trigger**
-- `lint`, `test`, or `build` fails repeatedly.
+- `lint`, `test`, or `build` keeps failing
 
-**Immediate Actions**
-1. Record exact failing command and error snippet.
-2. Apply the smallest safe fix.
-3. Re-run the failed command, then re-run full required gates.
-
-**Recovery Checklist**
-1. If failure persists after 3 focused attempts, stop and isolate root cause.
-2. Ask architect model (Claude) for targeted diagnosis only.
-3. Resume implementation after root cause is confirmed.
-
-**Prevention**
-1. Build and test in smaller increments.
-2. Add missing tests before extending functionality.
-3. Avoid stacking unrelated refactors in one diff.
-
----
+**Immediate Response**
+1. capture exact failing command and error
+2. make the smallest safe fix
+3. rerun failed command, then rerun required gates
 
 ## 3) Migration / Schema Drift
 
 **Trigger**
-- Runtime errors after schema changes, type mismatches, or broken contracts.
+- runtime breaks after schema or contract changes
 
-**Immediate Actions**
-1. Stop feature work.
-2. Verify migration order and applied state.
-3. Validate corresponding type/validator/API updates.
+**Immediate Response**
+1. stop feature work
+2. verify every schema-sync layer that should have changed
+3. run parity or contract checks before more edits
 
-**Recovery Checklist**
-1. Reconcile schema source of truth.
-2. Add/repair migration with monotonic order.
-3. Run targeted data-contract tests.
-4. Re-run `build` and type checks.
-
-**Prevention**
-1. Treat schema changes as a standalone phase.
-2. Require contract tests for migrations.
-3. Keep runtime validators close to schema changes.
-
----
-
-## 4) Reviewer Disagreement (Gemini vs Claude vs Codex)
+## 4) Production / Service Outage Confusion
 
 **Trigger**
-- Reviewers provide contradictory recommendations.
+- app behavior looks broken, but the real issue may be upstream service instability
 
-**Immediate Actions**
-1. Classify disagreement: correctness, architecture, or style.
-2. Prioritize correctness and security over style.
-3. Escalate only unresolved correctness conflicts to human decision.
+**Immediate Response**
+1. separate app-side symptoms from project/service-side health
+2. run direct health checks, not just UI checks
+3. capture the result in `DEBUG-JOURNAL.md` or `WORKLOG.md`
 
-**Recovery Checklist**
-1. Create a short decision note in `WORKLOG.md`.
-2. Implement selected direction.
-3. Re-run review with an explicit prompt anchored to chosen constraints.
-
-**Prevention**
-1. Use consistent review prompt structure.
-2. Keep acceptance criteria explicit in `PLAN.md`.
-3. Avoid vague goals like "clean this up".
-
----
-
-## 5) Jules PR Merge Conflicts
+## 5) Browser Harness Blocked
 
 **Trigger**
-- Multiple Jules agents produce overlapping PRs.
+- Playwright/browser MCP is blocked by auth, Chrome state, or local port conflicts
 
-**Immediate Actions**
-1. Pause non-critical scheduled agents.
-2. Merge the highest-priority PR first.
-3. Rebase remaining PR branches and resolve conflicts manually.
+**Immediate Response**
+1. switch to the documented fallback path
+2. use isolated Playwright server or auth-bypass copy if available
+3. capture artifacts from the failing path before changing strategy
 
-**Recovery Checklist**
-1. Validate conflict resolutions locally with full quality gate.
-2. Close stale/conflicting low-value PRs.
-3. Resume schedules with staggered run windows.
-
-**Prevention**
-1. Stagger scheduled agents by at least 30-60 minutes.
-2. Limit concurrent agents touching same domain.
-3. Keep each agent focused on a narrow responsibility.
-
----
-
-## 6) Flaky E2E or CI Instability
+## 6) Reviewer Disagreement
 
 **Trigger**
-- E2E tests fail non-deterministically across runs.
+- Gemini, Claude, or Codex give conflicting advice
 
-**Immediate Actions**
-1. Re-run failed suite once to confirm flake.
-2. Capture failing test artifacts/logs.
-3. Quarantine known flaky test with explicit tracking issue.
+**Immediate Response**
+1. classify the conflict as correctness, security, architecture, or style
+2. prioritize correctness/security
+3. record the decision briefly in `WORKLOG.md`
 
-**Recovery Checklist**
-1. Add deterministic waits/state setup.
-2. Isolate external dependencies with mocks or fixtures.
-3. Re-enable quarantined test once stabilized.
+## 7) Donor-Port Regression
 
-**Prevention**
-1. Keep smoke E2E small and deterministic.
-2. Use stable test data and controlled seeds.
-3. Run periodic flake audits in maintenance windows.
+**Trigger**
+- a donor-repo port works in isolation but breaks because the receiving repo has different assumptions
+
+**Immediate Response**
+1. compare the donor assumptions directly
+2. identify what is tenant-, auth-, or data-shape-specific
+3. document intentional divergence before continuing
+
+## 8) Flaky E2E Or CI Instability
+
+**Trigger**
+- E2E fails non-deterministically
+
+**Immediate Response**
+1. rerun once to confirm flake
+2. capture screenshots/traces/logs
+3. quarantine only if it blocks all progress

@@ -1,7 +1,7 @@
 # Workflow Metrics
 
-> Last updated: February 25, 2026
-> Role in workflow: Weekly measurement loop for quality, speed, and cost
+> Last updated: April 1, 2026
+> Role in workflow: Weekly measurement loop for quality, speed, cost, and workflow portability
 > Companion template: `templates/weekly-retro.md`
 
 ---
@@ -12,6 +12,7 @@ Measure workflow quality without over-instrumentation. Use a small set of metric
 1. Are we shipping faster?
 2. Are we shipping safer?
 3. Are we spending AI budget efficiently?
+4. Are we reducing repeat work and manual dashboard round-trips?
 
 ---
 
@@ -48,6 +49,8 @@ Track only these seven metrics for 4 weeks before adding more:
 - `flaky_test_events` — times tests failed without code changes
 - `worklog_compliance_pct` — meaningful changes with worklog entry
 - `automation_adoption_pct` — changes using script/CI gate vs manual only
+- `repeatable_actions_promoted` — number of prompts upgraded into commands, skills, hooks, or automations
+- `manual_dashboard_roundtrips` — times the human had to re-enter a service dashboard because the AI did not have a durable access path or handoff runbook
 
 ---
 
@@ -60,6 +63,8 @@ Track only these seven metrics for 4 weeks before adding more:
 | Regressions | Issue tracker labels + incident notes |
 | AI spend | Plan dashboards + API usage pages |
 | Risk-tier counts | PR template/commit body/worklog entries |
+| Action promotion | worklog entries, commands/skills/hook diffs |
+| Dashboard round-trips | weekly retro notes, service handoff runbooks |
 
 ---
 
@@ -84,6 +89,12 @@ Track only these seven metrics for 4 weeks before adding more:
 
 - If `rework_prs` is high:
   - Strengthen Phase 1 planning and acceptance criteria.
+
+- If `manual_dashboard_roundtrips` is high:
+  - Front-load service setup earlier and improve browser-login handoff docs.
+
+- If `repeatable_actions_promoted` stays at zero while the same prompts keep recurring:
+  - Promote those workflows into commands, skills, hooks, or automations instead of relying on memory.
 
 ---
 

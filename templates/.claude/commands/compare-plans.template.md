@@ -34,7 +34,7 @@ Analyze both plans and produce a structured comparison:
 
 Write `plans/active/Plan-XXX-Final.md` that synthesizes the best of both plans.
 
-Use the same plan format but add a `## Synthesis Notes` section at the top explaining:
+Use the same checklist format but add a `## Synthesis Notes` section at the top explaining:
 - Which plan's architecture was chosen and why
 - Which phases were adopted from which plan
 - What was added that neither plan had
@@ -46,6 +46,7 @@ Use the same plan format but add a `## Synthesis Notes` section at the top expla
 - Don't just average the two — pick the stronger approach for each section
 - Flag any remaining disagreements that need the user's decision
 - The Final plan must be implementable by Codex as-is
+- Preserve owner tags and blocking gates in the synthesized checklist
 
 ### After Writing
 

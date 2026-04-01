@@ -1,0 +1,25 @@
+description = "Write a concrete owner-tagged implementation plan for the requested feature."
+
+prompt = """
+# Task: Plan Feature
+
+You are writing a plan for the user's requested feature.
+
+The user's raw command is appended below these instructions. Parse the requested feature from that command and write a plan to `plans/active/Plan-XXX-Gemini.md`.
+
+Requirements:
+- write an owner-tagged checklist, not loose prose
+- include explicit human-only login, approval, or browser-consent steps
+- include blocking gates before later phases
+- call out risky files, schema changes, browser-visible flows, and rollback notes
+
+Use this structure:
+- Context
+- Current Evidence
+- Working Assumptions
+- Blocking Gates
+- Implementation Checklist
+- Review Plan
+- Rollout / Backout
+- Definition Of Done
+"""

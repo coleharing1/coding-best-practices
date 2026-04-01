@@ -25,13 +25,21 @@ plans/
 
 ## Workflow
 
-1. Write the same planning prompt for both tools
-2. Claude writes `Plan-XXX-CLAUDE.md` to `plans/active/`
-3. Codex writes `Plan-XXX-Codex.md` to `plans/active/`
-4. Each tool reads the other's plan and provides comparison notes
-5. You synthesize into `Plan-XXX-Final.md` (or have Claude do it after you review both)
-6. Codex implements from `Plan-XXX-Final.md`
-7. After implementation is complete, move all three files to `plans/archive/`
+1. Write the same planning prompt for both tools.
+2. Claude writes `Plan-XXX-CLAUDE.md` to `plans/active/`.
+3. Codex writes `Plan-XXX-Codex.md` to `plans/active/`.
+4. Compare both plans and synthesize `Plan-XXX-Final.md`.
+5. Make the Final plan an owner-tagged checklist with gates.
+6. Codex implements from `Plan-XXX-Final.md`.
+7. After implementation is complete, move all three files to `plans/archive/`.
+
+## What The Final Plan Should Look Like
+
+- checklist-based
+- owner-tagged
+- explicit about blockers and gates
+- explicit about verification
+- explicit about human-only login, approval, or consent steps
 
 ## Commands (Claude Code)
 

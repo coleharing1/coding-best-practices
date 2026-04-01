@@ -1,0 +1,27 @@
+name: Repo Self Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  repo-self-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate repo docs and templates
+        run: python scripts/validate_repo.py
+
+      - name: Check patch hygiene
+        run: git diff --check

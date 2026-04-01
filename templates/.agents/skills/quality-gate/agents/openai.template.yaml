@@ -1,0 +1,7 @@
+interface:
+  display_name: "Quality Gate"
+  short_description: "Run the repo's deterministic lint/test/build/parity gate and report exact outcomes"
+  brand_color: "#7C3AED"
+  default_prompt: "Run the quality-gate workflow using the repo docs and real verification commands"
+policy:
+  allow_implicit_invocation: true

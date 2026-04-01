@@ -18,34 +18,43 @@ Plan format:
 - **Goal**: [One-sentence desired outcome]
 - **Scope**: [In scope]
 - **Out of Scope**: [Explicitly excluded]
+- **Risk Tier**: [T0/T1/T2/T3]
 - **Constraints**: [Constraints]
 
-## Technical Approach
-- [Your recommended architecture and patterns]
-- [Key interfaces, contracts, data flow]
-- [Why this approach over alternatives]
+## Current Evidence
+- [Key repo findings]
 
-## Phased Implementation
+## Working Assumptions
+- [Assumption]
 
-### Phase 1 — [Name]
-- **Deliverable**: [What this phase produces]
-- **Steps**: [Numbered list of specific steps]
-- **Acceptance Criteria**: [Testable, binary pass/fail]
-- **Risk**: [What can go wrong + mitigation]
+## Ownership Legend
+- `[Cole]`, `[Codex]`, `[Claude]`, `[Gemini]`, `[Shared]`, `[Gate]`
 
-### Phase 2 — [Name]
+## Blocking Gates
+- [Gate list]
+
+## Implementation Checklist
+
+### Phase 1: [Name]
+#### 1A. [Workstream]
+- [ ] `[Owner]` [specific step]
+- [ ] `[Owner]` [specific step]
+#### Phase 1 Verification
+- [ ] `[Owner] [Gate]` [binary criterion]
+
+### Phase 2: [Name]
 [Same structure]
 
-## Test Plan
-- Unit: [What to test]
-- Integration: [What to test]
-- E2E: [What to test]
+## Review Plan
+- [ ] `[Gemini]` [structural review need]
+- [ ] `[Claude]` [logic/security review need]
 
-## Risks and Tradeoffs
-- [Risk/tradeoff → mitigation/rationale]
+## Rollout / Backout
+- [deployment notes]
+- [rollback trigger]
 
-## Estimated Complexity
-- [Low / Medium / High per phase]
+## Definition Of Done
+- [ ] [done item]
 ```
 
 Rules:
@@ -54,3 +63,4 @@ Rules:
 - Call out unknowns and assumptions explicitly.
 - Prefer minimal-change integration with existing patterns.
 - Think independently — do not try to anticipate what Claude's plan will say.
+- If a step needs a human login, 2FA, approval, or browser consent, mark it with the right owner tag.
