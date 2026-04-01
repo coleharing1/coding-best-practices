@@ -39,6 +39,7 @@ See `workflow/Repeatable-Actions-Stack.md`.
 | `plan-feature.md` | Create an owner-tagged checklist plan with gates and verification | Claude Code |
 | `codex-plan-feature.md` | Codex's competing checklist plan in the dual-plan workflow | Codex |
 | `codex-execute-phase.md` | Constrained phase-by-phase implementation from Final plan | Codex |
+| `project-audit-against-coding-best-practices.md` | Deep project audit prompt that compares a live repo against this reference repo before recommending upgrades | Codex |
 | `review-diff-gemini.md` | Structural/architectural diff review | Gemini CLI |
 | `review-diff-claude-high-risk.md` | Logic/security review for high-risk diffs | Claude Code |
 | `jules-session-task.md` | High-quality task request for Jules sessions | Cursor/Jules |
@@ -64,6 +65,13 @@ Codex phase execution:
 
 ```text
 Paste `prompts/codex-execute-phase.md` into Codex, then paste the relevant phase from plans/active/Plan-XXX-Final.md.
+```
+
+Project audit against this repo:
+
+```text
+Paste `prompts/project-audit-against-coding-best-practices.md` into a fresh Codex chat inside the target project repo.
+Codex should read that repo first, then compare it against `/Users/coleharing/Cursor_Projects/coding best practices`, then report recommended upgrades before editing anything.
 ```
 
 ## Related Repo Surfaces

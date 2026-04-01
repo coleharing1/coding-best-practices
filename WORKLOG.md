@@ -11,6 +11,26 @@ A lightweight running log of meaningful changes in this repo. This captures inte
 - Use one entry per logical unit of work.
 - Include real file paths in `Changes`.
 
+### Entry 006 -- Removed Mock-Mode Workflow Doc
+
+- **Goal**: Remove the standalone `workflow/Mock-Mode-and-Fallbacks.md` doc because it is no longer wanted as part of this repo's workflow library.
+- **Changes**:
+  - `workflow/Mock-Mode-and-Fallbacks.md` -- removed from the repo.
+  - `README.md` -- removed the direct link/reference to that workflow doc and adjusted wording so the repo still reads cleanly without it.
+  - `workflow/Starter-Kits.md`, `templates/archetypes/internal-ops-dashboard/README.md` -- softened the language from "mock mode" to safer fallback phrasing where that doc had been implicitly emphasized.
+- **Notes / decisions**:
+  - This change removes the dedicated doc, not the broader idea that some projects still benefit from safe fallbacks when external services are unavailable.
+
+### Entry 005 -- Saved Cross-Project Audit Prompt
+
+- **Goal**: Save the new "audit a live repo against coding best practices" prompt inside this repo so it is easy to reuse when opening fresh Codex chats in other projects.
+- **Changes**:
+  - `prompts/project-audit-against-coding-best-practices.md` -- added the detailed audit/comparison prompt for reading a target repo first, then comparing it against this reference repo before suggesting workflow upgrades.
+  - `prompts/README.md` -- indexed the new prompt and added a quick usage note for starting a fresh Codex audit chat in another project.
+- **Notes / decisions**:
+  - The prompt is intentionally research-only up front so Codex does not jump into edits before it understands both repos.
+  - The output format is opinionated and category-based so recommendations come back structured and actionable.
+
 ### Entry 004 -- Repo Dogfooding + Platform Guide Polish
 
 - **Goal**: Finish the repo's "final pass" by making it dogfood its own workflow more directly and by giving Cursor and Gemini the same practical treatment Claude already had.

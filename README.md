@@ -12,7 +12,7 @@ This repo is now organized around the patterns that show up repeatedly in your l
 - risk-tiered review and deterministic quality gates
 - browser QA as a first-class workflow, not a last-minute scramble
 - environment parity and guarded production workflows
-- mock mode and operator runbooks for systems that touch real services
+- safe fallbacks and operator runbooks for systems that touch real services
 - a portable repeatable-actions layer through commands, skills, hooks, rules, and automations
 - archetype starter kits for the project shapes you build most often
 
@@ -76,7 +76,6 @@ Phase 5  Push + Ops      Push intentionally, run parity/health checks, let async
 │   ├── Gemini-CLI-Workflow-Guide.md
 │   ├── Environment-Parity-and-Prod-Safety.md
 │   ├── Schema-Sync-Recipes.md
-│   ├── Mock-Mode-and-Fallbacks.md
 │   ├── Donor-Repo-Adaptation-Guide.md
 │   ├── Runbook-Patterns.md
 │   ├── Starter-Kits.md
@@ -111,7 +110,6 @@ Phase 5  Push + Ops      Push intentionally, run parity/health checks, let async
 | Setting up browser QA | `workflow/Browser-QA-Playbook.md` + `templates/TESTING_AND_BROWSER_AUTOMATION.template.md` |
 | Hardening prod/dev safety | `workflow/Environment-Parity-and-Prod-Safety.md` |
 | Handling schema changes safely | `workflow/Schema-Sync-Recipes.md` |
-| Designing mock/fallback behavior | `workflow/Mock-Mode-and-Fallbacks.md` |
 | Porting from an existing donor repo | `workflow/Donor-Repo-Adaptation-Guide.md` |
 | Building operator docs/runbooks | `workflow/Runbook-Patterns.md` + `templates/runbooks/` |
 | About to commit/push | `scripts/quality-gate.sh` + `workflow/AI-QUALITY-GATE-SOP.md` |
@@ -141,5 +139,5 @@ This repo now includes starter kits for the project shapes you keep returning to
 
 - `analytics-warehouse` -- multi-tenant dashboards, modeled marts, tenant scoping, warehouse health
 - `dual-stack-platform` -- Python/Next or similar split-stack apps with API/schema sync
-- `internal-ops-dashboard` -- workflow-heavy internal tools with queues, smoke tests, and mock mode
+- `internal-ops-dashboard` -- workflow-heavy internal tools with queues, smoke tests, and safe fallback behavior
 - `ai-media-saas` -- AI generation products with queues, parity checks, background jobs, and operator controls

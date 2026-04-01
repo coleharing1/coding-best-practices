@@ -4,7 +4,7 @@ Best for:
 
 - workflow-heavy internal tools
 - queues, batches, imports, and operator actions
-- domains where realistic mock mode improves development speed
+- domains where realistic fallback behavior improves development speed
 
 Copy first:
 
@@ -16,5 +16,5 @@ Copy first:
 Do not forget:
 
 - batch-safe UX and API limits
-- mock mode for external services
+- safe fallback behavior for external services
 - smoke tests for key routes

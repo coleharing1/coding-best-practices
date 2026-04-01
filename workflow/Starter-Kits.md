@@ -46,7 +46,7 @@ Use when the product is an operator tool with queues, batch actions, smoke tests
 Start with:
 
 - `templates/archetypes/internal-ops-dashboard/`
-- mock mode guidance
+- safe fallback guidance in the archetype README
 - browser/testing guide
 - debug journal
 
