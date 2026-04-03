@@ -55,6 +55,18 @@ Before the repo gets noisy, encode the first repeated behaviors as files:
 
 See `workflow/Repeatable-Actions-Stack.md`.
 
+### Phase 0.7: Seed The Macro Roadmap
+
+Before the first real feature plan, create `plans/MACRO-ROADMAP.md`.
+
+Use it to:
+
+- capture the whole-project sequence and current maturity
+- preserve durable phase status outside the active plan set
+- name the likely next build clusters before they are promoted into `plans/active/`
+
+This is the missing layer between "big idea in your head" and "current active numbered plan."
+
 ### Phase 1: Dual Plan
 
 Use the same feature prompt in both tools.
@@ -69,6 +81,7 @@ The Final plan should be:
 - a checklist, not loose prose
 - tagged with owners like `[Cole]`, `[Codex]`, `[Claude]`, `[Shared]`, `[Gate]`
 - explicit about login, approval, and browser-only steps
+- explicit about which macro-roadmap items it advances or changes
 
 See `workflow/Dual-Plan-Workflow.md`.
 
@@ -153,6 +166,7 @@ Do not skip straight from "I said this twice" to automation. The normal progress
 | `plans/active/Plan-XXX-CLAUDE.md` | Claude's independent plan |
 | `plans/active/Plan-XXX-Codex.md` | Codex's independent plan |
 | `plans/active/Plan-XXX-Final.md` | implementation source of truth |
+| `plans/MACRO-ROADMAP.md` | long-range roadmap and whole-project sequencing memory |
 | `tasks.json` | optional queue with owner + dependency tracking |
 | `WORKLOG.md` | durable implementation memory |
 | `CLAUDE.md` | Claude-specific planning/review context |
@@ -163,9 +177,9 @@ Do not skip straight from "I said this twice" to automation. The normal progress
 ### Context Flow
 
 ```text
-Cursor -> repo OS + service bootstrap
-Claude Code -> independent plan
-Codex -> independent plan
+Cursor -> repo OS + service bootstrap + macro roadmap
+Claude Code -> independent plan aligned to macro roadmap
+Codex -> independent plan aligned to macro roadmap
 Claude Code -> final checklist synthesis
 Codex -> implementation
 Gemini -> review
@@ -215,5 +229,5 @@ This workflow plugs into the rest of the repo:
 Use this as the default unless there is a strong reason not to:
 
 ```text
-Cursor bootstrap -> service handoff -> commands/skills/hooks pack -> Claude plan -> Codex plan -> Claude final checklist -> Codex build -> Gemini review -> quality gate -> push
+Cursor bootstrap -> service handoff -> commands/skills/hooks pack -> macro roadmap -> Claude plan -> Codex plan -> Claude final checklist -> Codex build -> Gemini review -> quality gate -> push
 ```

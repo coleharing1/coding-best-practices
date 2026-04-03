@@ -7,15 +7,16 @@ argument-hint: [feature-name]
 
 You are planning implementation for **$ARGUMENTS** in this project.
 
-Read the current codebase context (CLAUDE.md, WORKLOG.md, existing architecture) before planning.
+Read the current codebase context (`plans/MACRO-ROADMAP.md`, `CLAUDE.md`, `WORKLOG.md`, existing architecture) before planning.
 
 ## Output Requirements
 
 1. **Technical spec** — interfaces, contracts, data flow (keep it short)
-2. **Working assumptions, ownership legend, and blocking gates**
-3. **Phased implementation checklist** — discrete, sequential steps with owner tags. One phase = one Codex session.
-4. **Risk analysis and verification per phase**
-5. **Dual-review flags** — mark any phase that needs Gemini + Claude review (auth, payments, schema changes)
+2. **Macro Roadmap Alignment** — which roadmap IDs this plan advances and whether the roadmap needs a sync
+3. **Working assumptions, ownership legend, and blocking gates**
+4. **Phased implementation checklist** — discrete, sequential steps with owner tags. One phase = one Codex session.
+5. **Risk analysis and verification per phase**
+6. **Dual-review flags** — mark any phase that needs Gemini + Claude review (auth, payments, schema changes)
 
 ## Rules
 

@@ -14,6 +14,7 @@
 
 ```text
 plans/
+├── MACRO-ROADMAP.md
 ├── active/
 │   ├── Plan-001-CLAUDE.md
 │   ├── Plan-001-Codex.md
@@ -29,6 +30,7 @@ Every plan should be:
 
 - a checklist, not just narrative
 - explicit about scope and constraints
+- explicit about which macro-roadmap items it advances
 - tagged with owners
 - explicit about blockers and gates
 - explicit about verification
@@ -54,10 +56,11 @@ Include:
 - technical constraints
 - what is out of scope
 - known repo realities
+- which macro-roadmap phase or IDs the work likely belongs to
 
 ### Step 2: Claude Writes Its Plan
 
-Claude writes `plans/active/Plan-XXX-CLAUDE.md`.
+Claude reads `plans/MACRO-ROADMAP.md` first, then writes `plans/active/Plan-XXX-CLAUDE.md`.
 
 Best things for Claude to catch:
 
@@ -68,7 +71,7 @@ Best things for Claude to catch:
 
 ### Step 3: Codex Writes Its Plan
 
-Codex writes `plans/active/Plan-XXX-Codex.md`.
+Codex reads `plans/MACRO-ROADMAP.md` first, then writes `plans/active/Plan-XXX-Codex.md`.
 
 Best things for Codex to catch:
 
@@ -92,6 +95,7 @@ Claude writes `plans/active/Plan-XXX-Final.md`.
 
 The Final plan should preserve:
 
+- macro-roadmap alignment
 - owner tags
 - blocking gates
 - verification criteria
@@ -131,6 +135,9 @@ Use this shape:
 ## Current Evidence
 - [repo findings]
 
+## Macro Roadmap Alignment
+- [roadmap IDs and whether the roadmap itself needs a sync]
+
 ## Working Assumptions
 - [assumption]
 
@@ -155,6 +162,7 @@ Use this shape:
 
 ## Tips
 
+- Treat `plans/MACRO-ROADMAP.md` as the whole-project roadmap, not the active implementation checklist.
 - Do not let Codex read Claude's plan before writing its own.
 - Do not hide login, 2FA, approval, or browser-consent work inside vague "manual setup" bullets.
 - The Final plan should read like something you can execute directly, not something you still have to translate.

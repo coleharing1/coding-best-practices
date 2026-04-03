@@ -12,6 +12,11 @@
 
 - [Current repo state, existing patterns, or live-system findings that the plan should respect]
 
+## Macro Roadmap Alignment
+
+- [Which `MR-*` roadmap IDs this plan advances]
+- [Whether `plans/MACRO-ROADMAP.md` needs a sync]
+
 ## Working Assumptions
 
 - [Assumption]

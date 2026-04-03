@@ -1,0 +1,22 @@
+---
+description: Keep the macro roadmap aligned with real project direction
+alwaysApply: true
+---
+
+# Macro Roadmap Discipline
+
+Treat `plans/MACRO-ROADMAP.md` as the repo's permanent whole-project roadmap.
+
+## Update Required For
+
+- Meaningful phase completions or status changes
+- Changes to whole-project sequencing or likely-next work
+- Durable assumptions or constraints that alter the long-range plan
+- New numbered plans that materially redirect scope
+
+## Expectations
+
+- Read the macro roadmap before non-trivial planning or implementation work.
+- Non-trivial plans should include a `Macro Roadmap Alignment` section with roadmap IDs.
+- Do not implement directly from the macro roadmap; pull work into `plans/active/Plan-XXX-*.md`.
+- If the roadmap no longer matches repo reality, update it before handoff.

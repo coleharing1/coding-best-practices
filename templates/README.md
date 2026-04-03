@@ -13,6 +13,7 @@ The source-of-truth templates in this repo use `*.template.*` naming.
 - `WORKLOG.template.md`
 - `DEBUG-JOURNAL.template.md`
 - `TESTING_AND_BROWSER_AUTOMATION.template.md`
+- `plans/MACRO-ROADMAP.template.md`
 
 If you copy a file into a live project, remove `.template` from the filename.
 
@@ -25,7 +26,7 @@ Start almost every repo with:
 3. `CLAUDE.md`
 4. `AGENTS.md`
 5. `GEMINI.md` when Gemini CLI is in the loop
-6. `plans/`
+6. `plans/` including `MACRO-ROADMAP.md` for non-trivial projects
 7. `.cursor/rules/` and `.cursor/commands/` when Cursor is part of the workflow
 8. `.claude/commands/`, `.claude/rules/`, and optional `.claude/skills/` when Claude Code is part of the workflow
 9. `.gemini/commands/` and optional `.gemini/settings.json` when Gemini CLI is part of the workflow
@@ -57,6 +58,9 @@ See `workflow/Repeatable-Actions-Stack.md`.
 
 - `knowledgebase/10-implementation-checklist.md`
   Use when you want a long-running owner-tagged checklist with gates instead of a loose status doc.
+
+- `plans/MACRO-ROADMAP.md`
+  Use when you want a durable whole-project roadmap that stays separate from the current active execution plan.
 
 - `runbooks/`
   Use when the system has operators, invite flows, onboarding, incidents, or service setup that should not live only in code comments.

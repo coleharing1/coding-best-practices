@@ -40,6 +40,7 @@ See `workflow/Repeatable-Actions-Stack.md`.
 | `codex-plan-feature.md` | Codex's competing checklist plan in the dual-plan workflow | Codex |
 | `codex-execute-phase.md` | Constrained phase-by-phase implementation from Final plan | Codex |
 | `project-audit-against-coding-best-practices.md` | Deep project audit prompt that compares a live repo against this reference repo before recommending upgrades | Codex |
+| `project-structure-audit-and-cleanup-plan.md` | Generic deep-dive prompt for auditing a repo's current structure, classifying old vs current material, and recommending a cleaner layout before moving files | Codex |
 | `review-diff-gemini.md` | Structural/architectural diff review | Gemini CLI |
 | `review-diff-claude-high-risk.md` | Logic/security review for high-risk diffs | Claude Code |
 | `jules-session-task.md` | High-quality task request for Jules sessions | Cursor/Jules |
@@ -72,6 +73,13 @@ Project audit against this repo:
 ```text
 Paste `prompts/project-audit-against-coding-best-practices.md` into a fresh Codex chat inside the target project repo.
 Codex should read that repo first, then compare it against `/Users/coleharing/Cursor_Projects/coding best practices`, then report recommended upgrades before editing anything.
+```
+
+Generic project structure audit:
+
+```text
+Paste `prompts/project-structure-audit-and-cleanup-plan.md` into a fresh Codex chat inside the target repo.
+Fill the bracket placeholders that matter for that project, then have Codex audit the whole repo, classify current vs historical vs generated material, and recommend a cleanup plan before moving anything.
 ```
 
 ## Related Repo Surfaces

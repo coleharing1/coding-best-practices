@@ -15,12 +15,14 @@ alwaysApply: true
 
 ## Global Rules
 
+- Read `PLAN.md`, `plans/MACRO-ROADMAP.md`, and `plans/active/` for non-trivial work.
 - Search existing code before creating new files or abstractions.
 - Prefer minimal diffs; avoid cosmetic-only refactors unless requested.
 - Prefer functional/declarative patterns; avoid classes unless required by external SDKs.
 - Prefer explicit, actionable errors over silent fallbacks.
 - Avoid `any` when feasible; keep boundaries typed.
 - Keep files under 500 lines when practical.
+- If work changes long-range sequencing, durable assumptions, likely-next work, or roadmap status, update `plans/MACRO-ROADMAP.md` before handoff.
 
 ## Safety
 

@@ -14,9 +14,10 @@ Every serious repo should start with:
 2. `WORKLOG.md`
 3. `CLAUDE.md`
 4. `AGENTS.md`
-5. `plans/active/` and `plans/archive/`
-6. `.cursor/rules/`
-7. `.claude/commands/` and `.claude/rules/` when Claude Code is in the loop
+5. `plans/MACRO-ROADMAP.md` for the whole-project build sequence
+6. `plans/active/` and `plans/archive/`
+7. `.cursor/rules/`
+8. `.claude/commands/` and `.claude/rules/` when Claude Code is in the loop
 
 ## Optional But High-Value Layers
 
@@ -45,6 +46,7 @@ Add these when the repo grows in complexity:
 | `WORKLOG.md` | Durable implementation memory |
 | `CLAUDE.md` | Planner/reviewer context |
 | `AGENTS.md` | Builder instructions |
+| `plans/MACRO-ROADMAP.md` | Permanent whole-project roadmap and sequencing memory |
 | `plans/` | Decision history and active execution source of truth |
 | `DEBUG-JOURNAL.md` | Investigation memory |
 | `TESTING_AND_BROWSER_AUTOMATION.md` | Browser/testing quick reference |
@@ -59,6 +61,7 @@ Add these when the repo grows in complexity:
 3. Let `README.md` describe current reality, not aspirational roadmap.
 4. Let `WORKLOG.md` record intent, verification, and follow-ups that git does not preserve.
 5. Keep planning docs and operational docs separate.
+6. Keep the macro roadmap separate from the current active execution plan.
 
 ## Healthy Repo Signals
 

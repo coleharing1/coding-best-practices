@@ -1,6 +1,6 @@
 # Final Plan Checklist
 
-Read the active competing plans and synthesize a single `Plan-XXX-Final.md`.
+Read `plans/MACRO-ROADMAP.md` and the active competing plans, then synthesize a single `Plan-XXX-Final.md`.
 
 Rules:
 
@@ -9,3 +9,5 @@ Rules:
 - use owner tags such as `[Cole]`, `[Codex]`, `[Claude]`, `[Gemini]`, `[Shared]`, and `[Gate]`
 - preserve any human-only browser/login steps as explicit checklist items
 - include binary verification targets for each phase
+- include `Macro Roadmap Alignment` in the Final plan
+- update the macro roadmap if the synthesis changes long-range sequencing, likely-next work, or roadmap status

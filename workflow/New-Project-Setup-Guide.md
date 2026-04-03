@@ -24,7 +24,7 @@ Copy these first:
 3. `CLAUDE.md`
 4. `AGENTS.md`
 5. `GEMINI.md` when Gemini CLI is part of the loop
-6. `plans/`
+6. `plans/` including `plans/MACRO-ROADMAP.md`
 7. `.cursor/rules/` and `.cursor/commands/` when Cursor is part of the loop
 8. `.claude/commands/`, `.claude/rules/`, and `.claude/skills/` if Claude Code is part of the loop
 9. `.gemini/commands/` and optional `.gemini/settings.json` if Gemini CLI is part of the loop
@@ -67,7 +67,18 @@ Before the repo gets busy, add the first reusable workflow files:
 
 Use `workflow/Repeatable-Actions-Stack.md`.
 
-## Step 6: Add High-Value Operating Layers
+## Step 6: Seed The Macro Roadmap
+
+Before the first non-trivial feature plan, create `plans/MACRO-ROADMAP.md`.
+
+Capture:
+
+- the current maturity of the project
+- the whole-project sequence beyond the first build chunk
+- likely next numbered-plan candidates
+- durable assumptions that should survive across many sessions
+
+## Step 7: Add High-Value Operating Layers
 
 Add these when they match the project:
 
@@ -78,7 +89,7 @@ Add these when they match the project:
 - `runbooks/`
 - `.github/workflows/`
 
-## Step 7: Capture Baseline Reality
+## Step 8: Capture Baseline Reality
 
 In `CLAUDE.md` and `AGENTS.md`, record:
 
@@ -89,7 +100,7 @@ In `CLAUDE.md` and `AGENTS.md`, record:
 - service bootstrap status
 - preferred browser path
 
-## Step 8: Make The First Worklog Entry
+## Step 9: Make The First Worklog Entry
 
 `Entry 001` should capture:
 
@@ -99,9 +110,9 @@ In `CLAUDE.md` and `AGENTS.md`, record:
 - what commands, skills, hooks, or rules were added
 - any remaining human-only blockers
 
-## Step 9: Create The Project Checklist
+## Step 10: Create The Project Checklist
 
-Add `knowledgebase/10-implementation-checklist.md` for larger projects.
+Add `knowledgebase/10-implementation-checklist.md` for larger projects and use it alongside `plans/MACRO-ROADMAP.md`.
 
 Use owner tags such as:
 
@@ -111,7 +122,7 @@ Use owner tags such as:
 - `[Shared]`
 - `[Gate]`
 
-## Step 10: Pick The First Real Feature
+## Step 11: Pick The First Real Feature
 
 Run one real feature through:
 
@@ -131,4 +142,5 @@ The repo is ready when:
 - docs describe current truth
 - the AI can continue after your login step
 - repeated workflows already have a home in commands, skills, rules, or hooks
+- the repo has both a whole-project roadmap and a build-sized active plan flow
 - the next feature can start without re-explaining the repo from scratch

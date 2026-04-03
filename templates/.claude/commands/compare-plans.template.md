@@ -8,9 +8,9 @@ description: Compare Claude and Codex plans, then draft a Final synthesis plan
 
 !`ls -la plans/active/ 2>/dev/null || echo "No plans/active/ directory found"`
 
-### Step 2: Read Both Plans
+### Step 2: Read The Macro Roadmap And Both Plans
 
-Read both the CLAUDE and Codex plans from `plans/active/`.
+Read `plans/MACRO-ROADMAP.md` plus the CLAUDE and Codex plans from `plans/active/`.
 
 ### Step 3: Compare
 
@@ -39,6 +39,7 @@ Use the same checklist format but add a `## Synthesis Notes` section at the top 
 - Which phases were adopted from which plan
 - What was added that neither plan had
 - Any compromises or open decisions for the user
+- Which macro-roadmap items the Final plan advances or changes
 
 ### Rules
 
@@ -47,6 +48,7 @@ Use the same checklist format but add a `## Synthesis Notes` section at the top 
 - Flag any remaining disagreements that need the user's decision
 - The Final plan must be implementable by Codex as-is
 - Preserve owner tags and blocking gates in the synthesized checklist
+- Include `Macro Roadmap Alignment` in the Final plan and update the macro roadmap if synthesis changes long-range sequencing or likely-next work
 
 ### After Writing
 

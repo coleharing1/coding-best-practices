@@ -53,6 +53,7 @@ You are the builder and execution partner for this repo.
 - `WORKLOG.md` -- durable implementation memory
 - `CLAUDE.md` -- planner/reviewer context
 - `GEMINI.md` -- Gemini CLI context when Gemini is part of the loop
+- `plans/MACRO-ROADMAP.md` -- whole-project roadmap and sequencing memory
 - `plans/active/` -- active plan set
 - `plans/archive/` -- completed decision history
 - `DEBUG-JOURNAL.md` -- investigation memory when debugging is non-trivial
@@ -71,12 +72,14 @@ You are the builder and execution partner for this repo.
 ## Rules
 
 - Read the active Final plan before implementation when one exists.
+- Read `plans/MACRO-ROADMAP.md` before non-trivial planning or implementation work.
 - Implement one phase/task at a time; do not skip ahead.
 - Search existing patterns before creating new abstractions.
 - Keep diffs minimal and scoped to the task.
 - Prefer clear errors over silent fallbacks.
 - Keep typed boundaries; avoid `any` when feasible.
 - Update `WORKLOG.md` when behavior, architecture, process, or verification reality changes.
+- Update `plans/MACRO-ROADMAP.md` when long-range phase status, sequencing, durable assumptions, or likely-next work changes.
 - Update `README.md`, runbooks, or browser docs when they stop matching reality.
 - Prefer mock mode or safe fallbacks when external-service credentials are unavailable.
 - Prefer migrations and checked-in schema changes over ad hoc database edits.

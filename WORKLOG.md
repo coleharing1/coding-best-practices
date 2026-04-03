@@ -4,12 +4,53 @@ A lightweight running log of meaningful changes in this repo. This captures inte
 
 ---
 
+### Entry 010 -- Added One-Off Existing-Surface Improvement Planning Prompt
+
+- **Goal**: Save a stronger Codex planning prompt for scoped improvement work on an existing page, route, or feature when the task is not necessarily the next macro-roadmap milestone.
+- **Changes**:
+  - `Coles-saved-prompts-ai-optimized.md` -- added `Optimized Prompt 1.2`, a reusable prompt for reading project context first, deep-diving a specific existing surface, researching external product and technical references, and writing a focused `Plan-XXX-Codex.md` with risks, tradeoffs, QA expectations, and roadmap-sequencing guidance.
+- **Notes / decisions**:
+  - This prompt is intentionally different from `Optimized Prompt 1`: it is for targeted improvement planning on an already-existing surface, not broad "what should the next major plan be?" discovery.
+  - The prompt explicitly asks the model to decide whether the work should remain a standalone one-off initiative or should alter macro-roadmap sequencing.
+
+### Entry 009 -- Added Macro-Roadmap Support To The Reusable Workflow System
+
+- **Goal**: Turn the BanBox-style macro-roadmap layer into a reusable part of the coding-best-practices system so future projects inherit both the whole-project roadmap artifact and the rules that keep it updated.
+- **Changes**:
+  - `templates/plans/MACRO-ROADMAP.template.md` -- added a reusable permanent macro-roadmap template for whole-project sequencing, roadmap IDs, status tracking, active-plan alignment, and likely-next numbered-plan candidates.
+  - `templates/plans/README.md`, `templates/PLAN.template.md`, `templates/AGENTS.template.md`, `templates/CLAUDE.template.md`, `templates/GEMINI.template.md`, `templates/knowledgebase/README.template.md`, and `templates/knowledgebase/10-implementation-checklist.template.md` -- rewired the canonical templates so future repos distinguish between the macro roadmap and the active Final plan, and require `Macro Roadmap Alignment` in non-trivial plans.
+  - `templates/.claude/commands/*.template.md`, `templates/.cursor/commands/*.template.md`, `templates/.gemini/commands/*.template.toml`, `templates/.cursor/rules/*.template.mdc`, and `templates/.claude/rules/roadmap-sync.template.md` -- updated the reusable planning/rule surfaces so future commands and auto-loaded rules know to read, align to, and sync the macro roadmap.
+  - `README.md`, `workflow/Multi-Model-Workflow.md`, `workflow/Dual-Plan-Workflow.md`, `workflow/Repo-Operating-System.md`, `workflow/New-Project-Setup-Guide.md`, and `templates/README.md` -- updated the reference guidance so the macro roadmap is part of the default repo operating system for future projects rather than a one-off local customization.
+- **Notes / decisions**:
+  - The reusable pattern is now: `plans/MACRO-ROADMAP.md` for whole-project direction, `plans/active/Plan-XXX-Final.md` for the current buildable chunk.
+  - The macro roadmap is intentionally durable and strategic; detailed implementation sequencing still belongs in numbered plans and supporting docs.
+
 ## Entry format rules
 
 - Use entry numbers (`Entry 001`, `Entry 002`, ...).
 - Keep entries in reverse chronological order (newest at top).
 - Use one entry per logical unit of work.
 - Include real file paths in `Changes`.
+
+### Entry 008 -- Saved Generic Project Structure Cleanup Prompt
+
+- **Goal**: Save a reusable, project-agnostic version of the structure-cleanup audit prompt so future repos can be deeply audited and reorganized more safely before any files are moved.
+- **Changes**:
+  - `prompts/project-structure-audit-and-cleanup-plan.md` -- added a generic Codex prompt for reading a whole repo, classifying current vs historical vs generated structure, and recommending a cleaner target layout before making edits.
+  - `prompts/README.md` -- indexed the new prompt and added a usage note so it is easy to choose between the generic structure-audit prompt and the coding-best-practices comparison prompt.
+- **Notes / decisions**:
+  - This prompt is intentionally repo-agnostic and placeholder-driven so it works across product apps, internal tools, monorepos, and layered historical repos.
+  - The audit stays recommendation-first, which keeps structural cleanup safer and prevents Codex from moving files before it understands the repo's evolution.
+
+### Entry 007 -- Added Antigravity Vibe-Coding Research Guide
+
+- **Goal**: Save the current Antigravity guidance from live research and chat synthesis into the repo so the browser-first workflow details and use-case patterns are easy to reference later.
+- **Changes**:
+  - `research/Google_Antigravity_Vibe_Coding_Guide.md` -- added a dated research guide covering the launch-date correction, best-fit Antigravity workflow for local browser-driven build/debug loops, strong and weak use cases, step-by-step setup, and a curated source list spanning official Google material plus community examples.
+  - `README.md` -- added a direct "How to Use" pointer so the new Antigravity guide is discoverable from the main repo index.
+- **Notes / decisions**:
+  - The guide explicitly corrects the date confusion: Antigravity was not publicly available on April 1, 2025, so the practical workflow is documented as of April 1, 2026.
+  - Product-behavior claims are anchored to official Google sources; community links are included as workflow-pattern evidence rather than hard product facts.
 
 ### Entry 006 -- Removed Mock-Mode Workflow Doc
 

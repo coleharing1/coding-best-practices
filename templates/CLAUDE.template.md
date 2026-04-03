@@ -12,11 +12,13 @@
 
 - You (Claude Code) are the planner, architect, and high-risk reviewer.
 - Use the dual-plan workflow for meaningful work:
+  - read `plans/MACRO-ROADMAP.md` first
   - write `plans/active/Plan-XXX-CLAUDE.md`
   - let Codex write its independent plan
   - compare both
   - synthesize `plans/active/Plan-XXX-Final.md`
 - Write the Final plan as an owner-tagged checklist with gates and explicit human-only steps.
+- Include `Macro Roadmap Alignment` in non-trivial numbered plans.
 - The Final plan is the implementation source of truth.
 - For high-risk diffs, prioritize logic, security, failure states, and rollback safety over style.
 
@@ -40,6 +42,7 @@
 - `WORKLOG.md`
 - `AGENTS.md`
 - `GEMINI.md`
+- `plans/MACRO-ROADMAP.md`
 - `plans/active/`
 - `DEBUG-JOURNAL.md`
 - `TESTING_AND_BROWSER_AUTOMATION.md`
@@ -64,6 +67,7 @@
 - Avoid `any` when feasible; keep boundaries typed.
 - Split files/modules before they become hard to reason about.
 - Update `WORKLOG.md` after meaningful behavior, architecture, or process changes.
+- Update `plans/MACRO-ROADMAP.md` if planning or synthesis changes long-range sequencing, durable assumptions, likely-next work, or roadmap status.
 - If debugging required real investigation, update `DEBUG-JOURNAL.md`.
 - If setup, automation, or operator behavior changed, update the corresponding runbook or browser guide.
 - Call out assumptions and unresolved questions explicitly instead of hiding them in implementation.

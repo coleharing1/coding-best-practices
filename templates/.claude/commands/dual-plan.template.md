@@ -10,7 +10,8 @@ You are creating a competing plan for **$ARGUMENTS**.
 ### Before You Start
 
 1. Read the current codebase context: `CLAUDE.md`, `WORKLOG.md`, existing architecture
-2. Check `plans/active/` for the next plan number:
+2. Read `plans/MACRO-ROADMAP.md` if it exists
+3. Check `plans/active/` for the next plan number:
 
 !`ls plans/active/ 2>/dev/null | grep -oP 'Plan-\K[0-9]+' | sort -rn | head -1 || echo "No existing plans — start with 000"`
 
@@ -34,6 +35,10 @@ Use this structure:
 
 ## Current Evidence
 - [Repo findings that matter]
+
+## Macro Roadmap Alignment
+- [roadmap IDs this plan advances]
+- [whether the roadmap needs a sync]
 
 ## Working Assumptions
 - [Assumption]

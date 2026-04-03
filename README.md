@@ -6,6 +6,7 @@
 
 This repo is now organized around the patterns that show up repeatedly in your live projects:
 
+- a permanent macro roadmap for whole-project sequencing plus numbered active plans for the next buildable chunk
 - plan-first execution with dual plans and a synthesized final plan
 - durable repo memory through `WORKLOG.md`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, plans, and optional knowledgebases
 - short context files that act as maps into deeper repo docs instead of trying to hold the whole truth alone
@@ -24,6 +25,7 @@ The canonical copy-ready assets in `templates/` now use the `*.template.*` namin
 Phase 0  Cursor          Bootstrap repo, paste research, connect GitHub, create context files
 Phase 0.5 Services       Front-load DB/Vercel/browser auth so the AI can keep going after your login step
 Phase 0.6 Workflow OS    Promote repeated prompts into commands, skills, hooks, and bounded automations
+Phase 0.7 Macro Plan     Seed plans/MACRO-ROADMAP.md so the whole-project arc exists before feature planning starts
 Phase 0.75 Brownfield    Audit existing repo reality, commands, risk map, and known sharp edges
 Phase 1a Claude Code     Write Plan-XXX-CLAUDE.md as an owner-tagged checklist
 Phase 1b Codex           Write Plan-XXX-Codex.md from the same prompt
@@ -58,6 +60,8 @@ Phase 5  Push + Ops      Push intentionally, run parity/health checks, let async
 │   ├── knowledgebase/
 │   ├── runbooks/
 │   ├── plans/
+│   │   ├── MACRO-ROADMAP.template.md
+│   │   └── README.md
 │   ├── archetypes/
 │   ├── .github/workflows/
 │   ├── .claude/
@@ -105,9 +109,11 @@ Phase 5  Push + Ops      Push intentionally, run parity/health checks, let async
 | Setting up Gemini CLI context, commands, hooks, and skills | `workflow/Gemini-CLI-Workflow-Guide.md` |
 | Designing the repo operating system | `workflow/Repo-Operating-System.md` |
 | Setting up core templates | `templates/README.md` |
+| Seeding the whole-project roadmap | `templates/plans/MACRO-ROADMAP.template.md` + `workflow/Repo-Operating-System.md` |
 | Planning a non-trivial feature | `workflow/Dual-Plan-Workflow.md` + `templates/plans/README.md` |
 | Writing better worklogs | `workflow/Worklog-2.0.md` + `templates/WORKLOG.template.md` |
 | Setting up browser QA | `workflow/Browser-QA-Playbook.md` + `templates/TESTING_AND_BROWSER_AUTOMATION.template.md` |
+| Deep dive on Antigravity for browser-first vibe coding | `research/Google_Antigravity_Vibe_Coding_Guide.md` |
 | Hardening prod/dev safety | `workflow/Environment-Parity-and-Prod-Safety.md` |
 | Handling schema changes safely | `workflow/Schema-Sync-Recipes.md` |
 | Porting from an existing donor repo | `workflow/Donor-Repo-Adaptation-Guide.md` |
@@ -125,6 +131,7 @@ Phase 5  Push + Ops      Push intentionally, run parity/health checks, let async
 | `CLAUDE.md` | Planner/reviewer context for Claude Code |
 | `AGENTS.md` | Builder instructions for Codex |
 | `GEMINI.md` | Gemini CLI context and reviewer/workflow instructions when Gemini is in the loop |
+| `plans/MACRO-ROADMAP.md` | Permanent whole-project roadmap and sequencing checklist |
 | `plans/active/` + `plans/archive/` | Decision history and execution source of truth |
 | `DEBUG-JOURNAL.md` | Investigation memory for bugs, dead ends, and root causes |
 | `TESTING_AND_BROWSER_AUTOMATION.md` | One-stop browser/testing quick reference |

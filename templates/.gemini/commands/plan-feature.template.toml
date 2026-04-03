@@ -8,14 +8,17 @@ You are writing a plan for the user's requested feature.
 The user's raw command is appended below these instructions. Parse the requested feature from that command and write a plan to `plans/active/Plan-XXX-Gemini.md`.
 
 Requirements:
+- read `plans/MACRO-ROADMAP.md` first and align the plan to the relevant roadmap IDs
 - write an owner-tagged checklist, not loose prose
 - include explicit human-only login, approval, or browser-consent steps
 - include blocking gates before later phases
+- include a `Macro Roadmap Alignment` section
 - call out risky files, schema changes, browser-visible flows, and rollback notes
 
 Use this structure:
 - Context
 - Current Evidence
+- Macro Roadmap Alignment
 - Working Assumptions
 - Blocking Gates
 - Implementation Checklist

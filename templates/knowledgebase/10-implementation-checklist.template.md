@@ -1,6 +1,6 @@
 # 10. Implementation Checklist
 
-> Use this for project-level execution order, owner tags, and blocking gates.
+> Use this alongside `plans/MACRO-ROADMAP.md` for project-level execution order, owner tags, and blocking gates.
 
 ## Working Assumptions
 
@@ -10,10 +10,12 @@
 
 ## How To Use This Checklist
 
+- Check `plans/MACRO-ROADMAP.md` first for the whole-project sequence and current likely-next work.
+- Use this file for durable gates and cross-cutting execution checkpoints that support that roadmap.
 - Work in order unless an item is explicitly marked optional.
 - Do not start later phases before their gates are complete.
 - When a major phase starts, create or refresh the active plan set in `plans/active/`.
-- When a major phase ends, update `WORKLOG.md`, `README.md`, and any affected runbooks.
+- When a major phase ends, update `plans/MACRO-ROADMAP.md`, `WORKLOG.md`, `README.md`, and any affected runbooks.
 
 ## Ownership Legend
 

@@ -3,7 +3,7 @@ description = "Synthesize a single final owner-tagged checklist from the active 
 prompt = """
 # Task: Final Plan Checklist
 
-Read the active planning artifacts and synthesize one `plans/active/Plan-XXX-Final.md`.
+Read `plans/MACRO-ROADMAP.md` and the active planning artifacts, then synthesize one `plans/active/Plan-XXX-Final.md`.
 
 Rules:
 - the Final plan is the implementation source of truth
@@ -11,5 +11,7 @@ Rules:
 - use owner tags such as `[Cole]`, `[Codex]`, `[Claude]`, `[Gemini]`, `[Shared]`, and `[Gate]`
 - keep browser/login handoff steps explicit
 - include binary verification targets for each phase
+- include `Macro Roadmap Alignment` in the Final plan
+- update the macro roadmap if synthesis changes long-range sequencing, likely-next work, or roadmap status
 - do not write implementation code
 """

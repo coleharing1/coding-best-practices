@@ -12,6 +12,7 @@ When making meaningful project changes, update `WORKLOG.md` before final handoff
 - Behavior changes (routes, UI flow, runtime behavior)
 - Architecture or implementation pattern changes
 - Process/governance changes (SOPs, policies, rules)
+- Long-range roadmap or sequencing changes
 
 ## Entry Expectations
 
@@ -24,3 +25,4 @@ When making meaningful project changes, update `WORKLOG.md` before final handoff
 ## Do Not Skip
 
 If meaningful code/process changed and worklog is stale, stop and add the entry before concluding work.
+If the same work changed whole-project sequencing or roadmap status, update `plans/MACRO-ROADMAP.md` too.
