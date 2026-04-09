@@ -105,3 +105,15 @@ Analyze this schema or database change before implementation. Identify the affec
 ```text
 Prepare these changes for GitHub safely. Review the current branch and working tree, confirm the intended scope, stage only the relevant files, write a clean commit message, push the branch, and prepare a strong PR title and body that explains what changed, why it changed, and how it was validated. If the worktree is mixed or risky, pause and confirm scope before staging unrelated files.
 ```
+
+## Optimized Prompt 17
+
+```text
+Fix responsive layout and visual polish for `[PAGE, ROUTE, OR FEATURE]` in the same session—do not stop at a findings-only report. Start the app if needed, then work in a tight loop: inspect in the browser, change the smallest reasonable code or style fix, reload or rely on hot reload, and re-inspect until the problem is resolved at that viewport. Repeat across viewports until the surface is in good shape.
+
+Verify at least: a narrow mobile viewport (about 390px unless the project documents a canonical test width), a desktop viewport (about 1280px or wider), and an intermediate width if this UI has a tablet-specific layout or documented breakpoints. At each size, check: horizontal overflow or unwanted scroll; section, nav, and footer reflow; modals, drawers, and dropdowns; forms, tables, and dense content; images and media; spacing rhythm and alignment; typography hierarchy and line length; usable tap or click targets on narrow widths. Watch the console; fix errors you introduce and clear any straightforward pre-existing issues tied to this work.
+
+Prioritize fixes that block usability first, then obvious layout bugs, then polish. Prefer project styling conventions and design tokens over one-off hacks. If something requires a real product or brand decision you cannot infer, stop that sub-issue and note it briefly—otherwise keep iterating until checks pass.
+
+When finished, give a concise summary: files touched, what changed, and how you verified (viewports exercised). If authentication, consent, org selection, or 2FA is required, pause for the human-only step, then resume the same fix-and-verify loop immediately after.
+```

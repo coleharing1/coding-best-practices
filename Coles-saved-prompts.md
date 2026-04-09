@@ -97,3 +97,9 @@ Please analyze this schema or database change before implementation. Identify af
 ```text
 Please prepare these changes for GitHub safely. Review the current branch and working tree, confirm the intended scope, stage only the relevant files, write a clean commit message, push the branch, and prepare a strong PR title and body with validation notes.
 ```
+
+## Prompt 17
+
+```text
+Please fix responsive layout and visual polish for this page or feature in one continuous pass—not just a report. Use the browser at a narrow mobile width and a comfortable desktop width (and tablet if it matters). After you spot a problem, edit the code or styles, reload or hot-refresh, and re-check the same viewports until the issues are gone or you hit a genuine product or design decision you cannot resolve without me. Keep iterating: look, change, verify, repeat. Watch the console for errors and fix any you caused or can reasonably clear. When you are done, give a short summary of what you changed and how you confirmed it. If login or consent is required, pause and ping me for the human-only step, then continue the same fix-and-verify loop.
+```
