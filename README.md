@@ -70,6 +70,7 @@ Phase 5  Push + Ops      Push intentionally, run parity/health checks, let async
 │   └── .agents/skills/
 ├── workflow/
 │   ├── Multi-Model-Workflow.md
+│   ├── Parallel-Project-and-Port-Hygiene.md
 │   ├── New-Project-Setup-Guide.md
 │   ├── Repeatable-Actions-Stack.md
 │   ├── Repo-Operating-System.md
@@ -106,6 +107,7 @@ Phase 5  Push + Ops      Push intentionally, run parity/health checks, let async
 | Setting up DB / Vercel / login handoff | `workflow/AI-First-Service-Setup-and-Login-Handoff.md` |
 | Designing repeatable commands, skills, hooks, or automations | `workflow/Repeatable-Actions-Stack.md` |
 | Setting up Cursor rules, commands, and Bugbot | `workflow/Cursor-Workflow-Guide.md` |
+| Auditing multiple local projects, ports, and parallel agent sessions | `workflow/Parallel-Project-and-Port-Hygiene.md` |
 | Setting up Gemini CLI context, commands, hooks, and skills | `workflow/Gemini-CLI-Workflow-Guide.md` |
 | Designing the repo operating system | `workflow/Repo-Operating-System.md` |
 | Setting up core templates | `templates/README.md` |

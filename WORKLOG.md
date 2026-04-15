@@ -4,6 +4,16 @@ A lightweight running log of meaningful changes in this repo. This captures inte
 
 ---
 
+### Entry 011 -- Added Parallel Project And Port Hygiene Guide
+
+- **Goal**: Add a practical workflow guide for running multiple local projects, agent sessions, and dev services at the same time without losing track of ports, duplicate servers, or repo ownership.
+- **Changes**:
+  - `workflow/Parallel-Project-and-Port-Hygiene.md` -- added a new workflow doc covering when parallel local development is healthy, when duplicate servers are wasteful, how to audit listeners and working directories on macOS, how Claude Code, Codex, and Cursor should be isolated, and what beginner defaults reduce context and port chaos.
+  - `README.md` -- added a direct navigation entry so the new machine-audit and parallel-workflow guide is easy to find from the main repo index.
+- **Notes / decisions**:
+  - The guidance is intentionally operational rather than purely theoretical: it translates official product guidance plus a real local-machine audit into repo-usable habits.
+  - The doc keeps the advice general so it can apply across projects instead of reading like a one-off machine snapshot.
+
 ### Entry 010 -- Added One-Off Existing-Surface Improvement Planning Prompt
 
 - **Goal**: Save a stronger Codex planning prompt for scoped improvement work on an existing page, route, or feature when the task is not necessarily the next macro-roadmap milestone.
