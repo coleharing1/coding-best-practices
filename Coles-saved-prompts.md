@@ -103,3 +103,9 @@ Please prepare these changes for GitHub safely. Review the current branch and wo
 ```text
 Please fix responsive layout and visual polish for this page or feature in one continuous pass—not just a report. Use the browser at a narrow mobile width and a comfortable desktop width (and tablet if it matters). After you spot a problem, edit the code or styles, reload or hot-refresh, and re-check the same viewports until the issues are gone or you hit a genuine product or design decision you cannot resolve without me. Keep iterating: look, change, verify, repeat. Watch the console for errors and fix any you caused or can reasonably clear. When you are done, give a short summary of what you changed and how you confirmed it. If login or consent is required, pause and ping me for the human-only step, then continue the same fix-and-verify loop.
 ```
+
+## Prompt 18
+
+```text
+please do a deep dive on the internet as of May 2026 on how people are doing files for cursor rules, agent rules, claude rules, codex rules, etc. then write me an agents.md and claude.md for this project. please include in both rules related to the evelution of the project and when to update project files as we go so everything stays up to date and accurate based on the current status of the project and context for the Ai LLMs will always be useful to things dont get messed up from old or outdated things. I like when the Ai LLMs such as Codex and claude keep the project updated and accurate for me after they finish doing what i instruct them, that way i dont have to worry about making sure the project is files are always accurate and up to date.
+```
