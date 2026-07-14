@@ -1,0 +1,17 @@
+#!/bin/sh
+set -eu
+
+controller=${CROSSCHECKCTL_BIN:-crosscheckctl}
+command_name=${1:-}
+
+case "$command_name" in
+  plan|status|show|result|cancel|review|transfer)
+    ;;
+  *)
+    echo "Claude crosscheck wrapper permits: plan, status, show, result, cancel, review, transfer" >&2
+    exit 64
+    ;;
+esac
+
+export CROSSCHECK_CALLER=claude
+exec "$controller" "$@"

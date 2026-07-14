@@ -1,0 +1,21 @@
+{
+  "name": "crosscheck-council-local",
+  "owner": {
+    "name": "Braxton Blair"
+  },
+  "metadata": {
+    "description": "Private local marketplace for the guarded Crosscheck Council plugin.",
+    "version": "0.1.1"
+  },
+  "plugins": [
+    {
+      "name": "crosscheck",
+      "description": "Run the guarded Claude-Codex council through crosscheckctl.",
+      "version": "0.1.1",
+      "author": {
+        "name": "Braxton Blair"
+      },
+      "source": "./plugins/crosscheck"
+    }
+  ]
+}

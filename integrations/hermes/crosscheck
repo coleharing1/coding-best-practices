@@ -1,0 +1,17 @@
+#!/bin/sh
+set -eu
+
+controller=${CROSSCHECKCTL_BIN:-crosscheckctl}
+command_name=${1:-}
+
+case "$command_name" in
+  plan|status|show|cancel|transfer)
+    ;;
+  *)
+    echo "Hermes crosscheck wrapper permits: plan, status, show, cancel, transfer" >&2
+    exit 64
+    ;;
+esac
+
+export CROSSCHECK_CALLER=hermes
+exec "$controller" "$@"

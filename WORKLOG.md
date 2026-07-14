@@ -4,6 +4,21 @@ A lightweight running log of meaningful changes in this repo. This captures inte
 
 ---
 
+### Entry 012 -- Added The Local Claude-Codex-Hermes Crosscheck Council
+
+- **Goal**: Turn the existing manual dual-plan habit into a local, evidence-bound council that can plan, gate approval, implement in an isolated worktree, review, verify, and create a local commit without inheriting external integrations.
+- **Changes**:
+  - `crosscheck_council/`, `bin/crosscheckctl`, `pyproject.toml`, `.python-version`, and `uv.lock` -- added the standard-library Python 3.11 controller, versioned run/evidence/approval/verification records, private atomic storage, provider isolation, disk/retention gates, process-group cancellation, raw Git evidence binding, bounded review corrections, sandboxed QA, transfer receipts, and deterministic local commits.
+  - `.agents/skills/crosscheck-council`, `skills.lock.json`, `_scripts/sync-crosscheck.py`, and `integrations/{claude,codex,hermes}` -- added one canonical skill plus hash-verified harness caches and narrow command wrappers.
+  - `integrations/claude-plugin` and `_scripts/install-crosscheck-integrations.py` -- added the private `/crosscheck:*` Claude command surface and a sessions-only Codex Desktop transfer importer, with no Stop gate, rescue path, inherited reviewer MCP, or automatic implementation.
+  - `tests/test_core.py`, `tests/test_adapter_permissions.py`, `tests/test_integrations.py`, `tests/test_workflow.py`, and `tests/test_resilience.py` -- added unit, containment, process-leak, retention, fallback, three-seed planning, and full fake-provider approval-to-local-commit coverage.
+  - `workflow/Crosscheck-Council.md`, `workflow/Dual-Plan-Workflow.md`, `README.md`, `Makefile`, and `scripts/validate_repo.py` -- documented, indexed, wrapped, and validated the new workflow.
+- **Notes / decisions**:
+  - Crewplane and the stock OpenAI Claude review plugin were deliberately not installed. Codex uses strict path-scoped permission profiles; Claude uses safe mode, exact tool attestation, empty customization state, and sensitive-file deny rules.
+  - The initial Hermes surface remains manual and read/control-only. Hermes upgrades, Telegram approval, Kanban mirroring, and Friday scheduling stay gated until three real provider pilots pass.
+  - Real council runs remain blocked below 20 GiB free. Disposable provider-double pilots pass, but the real-provider pilots and low-risk real-repository pilot must wait for safe disk cleanup.
+  - Flxpoint material was removed from local plaintext surfaces and locked down, but external credential rotation and any 2FA step remain human-only.
+
 ### Entry 011 -- Added Parallel Project And Port Hygiene Guide
 
 - **Goal**: Add a practical workflow guide for running multiple local projects, agent sessions, and dev services at the same time without losing track of ports, duplicate servers, or repo ownership.

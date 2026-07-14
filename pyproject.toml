@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crosscheck-council"
+version = "0.1.0"
+description = "Dependency-free local Claude/Codex crosscheck controller"
+requires-python = ">=3.11,<3.12"
+dependencies = []
+
+[project.scripts]
+crosscheckctl = "crosscheck_council.cli:main"
+
+[tool.setuptools]
+packages = ["crosscheck_council"]

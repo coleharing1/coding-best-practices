@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+
+controller=${CROSSCHECKCTL_BIN:-crosscheckctl}
+export CROSSCHECK_CALLER=codex
+exec "$controller" "$@"

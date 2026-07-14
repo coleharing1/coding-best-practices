@@ -45,6 +45,7 @@ def validate_required_paths(errors: list[str]) -> None:
         "workflow/Cursor-Workflow-Guide.md",
         "workflow/Gemini-CLI-Workflow-Guide.md",
         "workflow/Multi-Model-Workflow.md",
+        "workflow/Crosscheck-Council.md",
         "workflow/New-Project-Setup-Guide.md",
         "workflow/AI-First-Service-Setup-and-Login-Handoff.md",
         "metrics/Workflow-Scorecard.md",
@@ -55,6 +56,9 @@ def validate_required_paths(errors: list[str]) -> None:
         "templates/.cursor/BUGBOT.template.md",
         "templates/.gemini/commands/README.template.md",
         "templates/.agents/skills/README.template.md",
+        ".agents/skills/crosscheck-council/SKILL.md",
+        "integrations/claude-plugin/.claude-plugin/marketplace.json",
+        "Makefile",
     ]
     for relpath in required:
         path = ROOT / relpath
