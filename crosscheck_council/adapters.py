@@ -697,8 +697,10 @@ class CodexAdapter(ProviderAdapter):
         "shell_snapshot",
         "skill_mcp_dependency_install",
         "standalone_web_search",
-        "web_search_cached",
-        "web_search_request",
+        # web_search_cached / web_search_request intentionally omitted: current
+        # Codex CLI (0.144+) deprecated those [features] sub-flags in favor of the
+        # top-level `web_search` key (set to "disabled" below), and passing them
+        # emits deprecation warnings as error-type item events that abort parsing.
         "workspace_dependencies",
     )
 

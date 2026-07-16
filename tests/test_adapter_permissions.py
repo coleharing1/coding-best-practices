@@ -51,6 +51,13 @@ class CodexPermissionArgvTests(unittest.TestCase):
 
         for feature in CodexAdapter._DISABLED_FEATURES:
             self.assertIn(["--disable", feature], [argv[index : index + 2] for index in range(len(argv) - 1)])
+        # The deprecated web-search [features] sub-flags must NOT be passed — current
+        # Codex CLI emits deprecation error-items for them that abort plan parsing;
+        # top-level web_search="disabled" (asserted above) is the supported control.
+        self.assertNotIn("web_search_cached", CodexAdapter._DISABLED_FEATURES)
+        self.assertNotIn("web_search_request", CodexAdapter._DISABLED_FEATURES)
+        self.assertNotIn("web_search_cached", argv)
+        self.assertNotIn("web_search_request", argv)
         return configs
 
     def test_plan_and_review_use_exact_read_only_roots(self) -> None:
