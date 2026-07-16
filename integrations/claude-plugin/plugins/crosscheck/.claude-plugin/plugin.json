@@ -1,0 +1,8 @@
+{
+  "name": "crosscheck",
+  "version": "0.1.2",
+  "description": "Run guarded crosschecks through crosscheckctl without inheriting Codex review tools.",
+  "author": {
+    "name": "Braxton Blair"
+  }
+}

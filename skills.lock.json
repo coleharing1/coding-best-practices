@@ -1,0 +1,38 @@
+{
+  "canonical_root": ".agents/skills",
+  "helpers": {
+    "crosscheck-import": {
+      "sha256": "1fcc8b359e8e7796c937272fbe2da42ce352bfa4b3bd90c9e48a764677cc19da",
+      "source": "integrations/claude-plugin/plugins/crosscheck/scripts/crosscheck-import.mjs",
+      "target": "~/.local/bin/crosscheck-import"
+    }
+  },
+  "schema_version": "skills-lock/v1",
+  "skills": {
+    "crosscheck-council": {
+      "sha256": "4ba7ee515edda280bddd1a27a4a31f8195fac17b83e273872e80f3abcf974974"
+    }
+  },
+  "targets": {
+    "claude": "~/.claude/skills",
+    "codex": "~/.codex/skills",
+    "hermes": "~/.hermes/skills/productivity"
+  },
+  "wrappers": {
+    "claude": {
+      "sha256": "af562c22af2605254e6cb8111a60d957f11f6d7a6f00673224a322e9afb2eb8e",
+      "source": "integrations/claude/crosscheck",
+      "target": "~/.local/bin/crosscheck-claude"
+    },
+    "codex": {
+      "sha256": "ea102b6d6efbfeb09d11ed73f56ae4e8ab59a03db8c54b1611ba90bf74129913",
+      "source": "integrations/codex/crosscheck",
+      "target": "~/.local/bin/crosscheck-codex"
+    },
+    "hermes": {
+      "sha256": "1ade74acd1552d9697cacf69f7d843f8942698115a0f729dff7c02560de4edd8",
+      "source": "integrations/hermes/crosscheck",
+      "target": "~/.local/bin/crosscheck-hermes"
+    }
+  }
+}

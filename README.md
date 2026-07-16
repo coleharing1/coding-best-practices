@@ -8,6 +8,7 @@ This repo is now organized around the patterns that show up repeatedly in your l
 
 - a permanent macro roadmap for whole-project sequencing plus numbered active plans for the next buildable chunk
 - plan-first execution with dual plans and a synthesized final plan
+- an optional local Crosscheck Council that automates independent Claude and Codex planning without inheriting either tool's external integrations
 - durable repo memory through `WORKLOG.md`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, plans, and optional knowledgebases
 - short context files that act as maps into deeper repo docs instead of trying to hold the whole truth alone
 - risk-tiered review and deterministic quality gates
@@ -43,9 +44,22 @@ Phase 5  Push + Ops      Push intentionally, run parity/health checks, let async
 ```text
 ├── README.md
 ├── WORKLOG.md
+├── Makefile
+├── bin/
+│   └── crosscheckctl
+├── crosscheck_council/
+├── integrations/
+│   ├── claude-plugin/
+│   ├── claude/
+│   ├── codex/
+│   └── hermes/
 ├── scripts/
 │   ├── review-diff.sh
-│   └── quality-gate.sh
+│   ├── quality-gate.sh
+│   └── validate_repo.py
+├── _scripts/
+│   ├── install-crosscheck-integrations.py
+│   └── sync-crosscheck.py
 ├── templates/
 │   ├── README.md
 │   ├── AGENTS.template.md
@@ -113,6 +127,7 @@ Phase 5  Push + Ops      Push intentionally, run parity/health checks, let async
 | Setting up core templates | `templates/README.md` |
 | Seeding the whole-project roadmap | `templates/plans/MACRO-ROADMAP.template.md` + `workflow/Repo-Operating-System.md` |
 | Planning a non-trivial feature | `workflow/Dual-Plan-Workflow.md` + `templates/plans/README.md` |
+| Running an evidence-bound Claude/Codex council | `workflow/Crosscheck-Council.md` + `bin/crosscheckctl` |
 | Writing better worklogs | `workflow/Worklog-2.0.md` + `templates/WORKLOG.template.md` |
 | Setting up browser QA | `workflow/Browser-QA-Playbook.md` + `templates/TESTING_AND_BROWSER_AUTOMATION.template.md` |
 | Deep dive on Antigravity for browser-first vibe coding | `research/Google_Antigravity_Vibe_Coding_Guide.md` |

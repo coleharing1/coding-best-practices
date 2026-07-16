@@ -1,0 +1,4 @@
+interface:
+  display_name: "Crosscheck Council"
+  short_description: "Run independent Claude and Codex crosschecks"
+  default_prompt: "Use $crosscheck-council to create an independent, evidence-bound plan for this repository task."

@@ -1,0 +1,10 @@
+Crosscheck Council
+
+This product includes modified portions of OpenAI's codex-plugin-cc 1.0.6.
+Copyright 2026 OpenAI
+
+The retained portions implement Claude transcript-path export and Codex's
+external-agent session import protocol. Review, rescue, broker, task, and Stop
+hook implementations from the upstream plugin are not included.
+
+Modifications Copyright 2026 Braxton Blair

@@ -2,6 +2,8 @@
 
 > Claude and Codex plan independently. Claude then synthesizes the Final checklist that Codex implements.
 
+For an automated, evidence-bound version with provider isolation, approval receipts, and local-only implementation gates, see `workflow/Crosscheck-Council.md`.
+
 ---
 
 ## Why This Works
