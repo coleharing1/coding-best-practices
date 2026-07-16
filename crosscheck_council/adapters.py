@@ -560,6 +560,9 @@ class ProviderAdapter:
         for result in results:
             result.persist()
         if pending_error is not None:
+            # Carry the attempt records so the controller can journal failures
+            # into the manifest (otherwise failed runs show "attempts": []).
+            pending_error.attempts = tuple(attempts)
             raise pending_error
         assert output is not None
         return output
@@ -721,6 +724,9 @@ class CodexAdapter(ProviderAdapter):
             "exec",
             "--json",
             "--ephemeral",
+            # The read/plan stage runs from the per-run staging dir, which is not a
+            # git repository; without this flag `codex exec` aborts before inference.
+            "--skip-git-repo-check",
             "--ignore-user-config",
             "--ignore-rules",
             "--strict-config",

@@ -195,9 +195,19 @@ def check(lock: dict, home: Path, harness: str) -> tuple[list[dict], bool]:
 
 
 def private_mkdir(path: Path) -> None:
+    # mkdir's mode only applies to the leaf (and is umask-subject); parents=True
+    # creates intermediates (backup timestamp dirs) world-traversable. Track every
+    # missing component and chmod the whole created chain to 0700.
+    missing: list[Path] = []
+    probe = path
+    while not probe.exists():
+        missing.append(probe)
+        if probe.parent == probe:
+            break
+        probe = probe.parent
     path.mkdir(parents=True, exist_ok=True, mode=0o700)
-    if path.parent.exists() and path.name.startswith(".crosscheck-"):
-        path.chmod(0o700)
+    for created in missing:
+        created.chmod(0o700)
 
 
 def install(lock: dict, home: Path, harness: str) -> list[dict]:

@@ -424,10 +424,12 @@ class Controller:
                 self._update_status(run_id, manifest, "awaiting_approval")
                 return manifest
             except CancelledError as exc:
+                manifest["attempts"].extend(getattr(exc, "attempts", ()) or ())
                 manifest["error"] = str(exc)
                 self._update_status(run_id, manifest, "cancelled")
                 raise
             except BaseException as exc:
+                manifest["attempts"].extend(getattr(exc, "attempts", ()) or ())
                 manifest["error"] = str(exc)
                 if manifest["status"] not in TERMINAL_STATUSES:
                     self._update_status(run_id, manifest, "failed")
@@ -713,6 +715,7 @@ class Controller:
                 self._update_status(run_id, manifest, "implemented")
                 return manifest
             except BaseException as exc:
+                manifest["attempts"].extend(getattr(exc, "attempts", ()) or ())
                 manifest["error"] = str(exc)
                 self._update_status(run_id, manifest, "cancelled" if isinstance(exc, CancelledError) else "failed")
                 raise

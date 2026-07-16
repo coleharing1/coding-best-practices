@@ -102,9 +102,14 @@ class WrapperTests(unittest.TestCase):
         self.fake = executable(
             self.root / "fake-crosscheckctl",
             """#!/usr/bin/env python3
-import json, os, sys
+import json, os, stat, sys
+record = {'argv': sys.argv[1:], 'caller': os.environ.get('CROSSCHECK_CALLER')}
+if '--request-file' in sys.argv:
+    request_path = sys.argv[sys.argv.index('--request-file') + 1]
+    record['request_file_content'] = open(request_path, encoding='utf-8').read()
+    record['request_file_mode'] = stat.S_IMODE(os.stat(request_path).st_mode)
 with open(os.environ['CALL_LOG'], 'a', encoding='utf-8') as handle:
-    handle.write(json.dumps({'argv': sys.argv[1:], 'caller': os.environ.get('CROSSCHECK_CALLER')}) + '\\n')
+    handle.write(json.dumps(record) + '\\n')
 if sys.argv[1:] == ['--json', 'status', '--latest'] or sys.argv[1:3] == ['--json', 'status']:
     print(json.dumps({'run_id': 'run-test', 'repository': {'path': os.environ.get('STATUS_REPO', os.getcwd())}}))
 else:
@@ -136,7 +141,7 @@ else:
         self.assertEqual(claude.returncode, 64)
         self.assertEqual(self.calls(), [{"argv": ["approve", "run-1"], "caller": "codex"}])
 
-    def test_plugin_plan_passes_request_as_one_argv_value(self) -> None:
+    def test_plugin_plan_passes_request_via_private_file_never_argv(self) -> None:
         transcript = self.root / "session.jsonl"
         request = 'Review this; $(touch /tmp/never) and "quotes" must stay text.'
         transcript.write_text(
@@ -153,8 +158,14 @@ else:
         result = run("node", PLUGIN_COMMAND, "plan", cwd=self.root, env=env)
         self.assertEqual(result.returncode, 0, result.stderr)
         call = self.calls()[0]
-        self.assertEqual(call["argv"][:4], ["plan", "--repo", os.path.realpath(self.root), "--request"])
-        self.assertEqual(call["argv"][4], request)
+        self.assertEqual(call["argv"][:4], ["plan", "--repo", os.path.realpath(self.root), "--request-file"])
+        # The request text must never appear in argv (argv is world-readable in
+        # the process table); it travels via a 0600 temp file instead.
+        self.assertNotIn(request, call["argv"])
+        self.assertEqual(call["request_file_content"], request)
+        self.assertEqual(call["request_file_mode"], 0o600)
+        # The temp staging dir is removed once the controller returns.
+        self.assertFalse(Path(call["argv"][4]).exists())
         self.assertEqual(call["caller"], "claude-plugin")
 
     def test_plugin_resolves_latest_for_cancel(self) -> None:

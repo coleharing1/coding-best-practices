@@ -34,6 +34,9 @@ class CodexPermissionArgvTests(unittest.TestCase):
         self.assertIn("--strict-config", argv)
         self.assertIn("--ignore-user-config", argv)
         self.assertIn("--ignore-rules", argv)
+        # The plan/review stage launches from the non-git per-run staging dir;
+        # without this flag codex exec aborts before inference (0/3 pilot bug).
+        self.assertIn("--skip-git-repo-check", argv)
         self.assertEqual(argv[argv.index("--model") + 1], model)
 
         configs = config_values(argv)

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import process from "node:process";
 import { spawnSync } from "node:child_process";
@@ -26,6 +27,9 @@ function runController(args, options = {}) {
   });
   if (result.error) {
     fail(`Could not launch crosscheckctl: ${result.error.message}`);
+  }
+  if (options.noExit) {
+    return result;
   }
   if (!options.capture) {
     process.exit(result.status ?? 1);
@@ -159,8 +163,23 @@ function main() {
 
   if (command === "plan") {
     const transcript = currentTranscript();
-    runController(["plan", "--repo", process.cwd(), "--request", precedingUserRequest(transcript)]);
-    return;
+    // Pass the request via a 0600 temp file, never argv — argv is world-readable
+    // in the process table for the lifetime of the crosscheckctl run.
+    const stagingDir = fs.mkdtempSync(path.join(os.tmpdir(), "crosscheck-plan-"));
+    fs.chmodSync(stagingDir, 0o700);
+    const requestPath = path.join(stagingDir, "request.txt");
+    fs.writeFileSync(requestPath, precedingUserRequest(transcript), { mode: 0o600 });
+    let status = 1;
+    try {
+      const result = runController(
+        ["plan", "--repo", process.cwd(), "--request-file", requestPath],
+        { noExit: true }
+      );
+      status = result.status ?? 1;
+    } finally {
+      fs.rmSync(stagingDir, { recursive: true, force: true });
+    }
+    process.exit(status);
   }
   if (command === "status") {
     runController(["status", selectedRunId()]);

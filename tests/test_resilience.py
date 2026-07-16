@@ -278,6 +278,12 @@ class ProviderResilienceTests(unittest.TestCase):
             self.assertIn("401 Unauthorized", (workspace / "raw" / "auth-attempt-1.stderr.log").read_text())
             self.assertFalse((workspace / "raw" / "auth-attempt-2.stderr.log").exists())
             self.assertEqual(registry.snapshot(), [])
+            # Failed attempts must ride the exception so the controller can
+            # journal them into the manifest (failed runs used to show []).
+            failed_attempts = getattr(raised.exception, "attempts", ())
+            self.assertEqual(len(failed_attempts), 1)
+            self.assertEqual(failed_attempts[0]["status"], "failure")
+            self.assertEqual(failed_attempts[0]["requested_model"], "fake-primary")
 
     def test_malformed_provider_json_fails_closed_without_fallback(self) -> None:
         adapter = SubprocessJsonAdapter("malformed")
