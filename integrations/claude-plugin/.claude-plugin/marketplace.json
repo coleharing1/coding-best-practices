@@ -5,13 +5,13 @@
   },
   "metadata": {
     "description": "Private local marketplace for the guarded Crosscheck Council plugin.",
-    "version": "0.1.1"
+    "version": "0.1.2"
   },
   "plugins": [
     {
       "name": "crosscheck",
       "description": "Run the guarded Claude-Codex council through crosscheckctl.",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "author": {
         "name": "Braxton Blair"
       },
