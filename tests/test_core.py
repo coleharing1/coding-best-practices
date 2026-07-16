@@ -485,6 +485,51 @@ class ClaudeAttestationTests(unittest.TestCase):
             with self.assertRaises(ProviderError):
                 adapter.parse(missing_init, requested_model="claude-primary", mode="plan")
 
+    def test_parser_attests_authoring_model_and_rejects_substitution(self) -> None:
+        adapter = ClaudeAdapter(sys.executable, "claude-primary", "claude-fallback", "high")
+
+        def process_result(path: Path, events: list[dict]) -> ProcessResult:
+            return ProcessResult(
+                argv=(sys.executable,),
+                returncode=0,
+                started_at="now",
+                ended_at="now",
+                duration_seconds=0,
+                prompt=b"",
+                stdout=("\n".join(json.dumps(item) for item in events) + "\n").encode(),
+                stderr=b"",
+                prompt_path=path / "prompt",
+                stdout_path=path / "stdout",
+                stderr_path=path / "stderr",
+            )
+
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)
+            # A tiny internal utility model (e.g. Haiku topic-detect) may appear as
+            # the LAST modelUsage key; attestation must prefer the model that
+            # authored the assistant messages, not the dict order of usage keys.
+            utility_last = [
+                {"type": "system", "subtype": "init", "tools": ["Read", "Grep", "Glob"], "mcp_servers": []},
+                {"type": "assistant", "message": {"model": "claude-primary", "content": []}},
+                {
+                    "type": "result",
+                    "result": "safe",
+                    "modelUsage": {"claude-primary": {}, "claude-utility-mini": {}},
+                },
+            ]
+            text, model = adapter.parse(process_result(path, utility_last), requested_model="claude-primary", mode="plan")
+            self.assertEqual(model, "claude-primary")
+            self.assertEqual(text, "safe\n")
+            # A genuine served substitution (authoring model != requested) must
+            # fail closed — same-vendor alone is not contract compliance.
+            substituted = [
+                {"type": "system", "subtype": "init", "tools": ["Read", "Grep", "Glob"], "mcp_servers": []},
+                {"type": "assistant", "message": {"model": "claude-haiku-tiny", "content": []}},
+                {"type": "result", "result": "safe", "modelUsage": {"claude-haiku-tiny": {}}},
+            ]
+            with self.assertRaisesRegex(ProviderError, "does not match requested"):
+                adapter.parse(process_result(path, substituted), requested_model="claude-primary", mode="plan")
+
 
 if __name__ == "__main__":
     unittest.main()

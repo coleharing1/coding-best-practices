@@ -625,6 +625,10 @@ class ClaudeAdapter(ProviderAdapter):
     def parse(self, result: ProcessResult, *, requested_model: str, mode: str) -> tuple[str, str]:
         events = _json_lines(result.stdout, result.stdout_path)
         output = ""
+        # Assistant-message models attest who AUTHORED the output; modelUsage keys
+        # also include internal utility calls (e.g. a 17-token Haiku topic-detect),
+        # so they are only a fallback attestation source, never preferred.
+        authoring_models: list[str] = []
         actual_models: list[str] = []
         saw_safe_init = False
         for event in events:
@@ -633,7 +637,7 @@ class ClaudeAdapter(ProviderAdapter):
                 message = event.get("message", {})
                 if isinstance(message, dict):
                     if isinstance(message.get("model"), str):
-                        actual_models.append(message["model"])
+                        authoring_models.append(message["model"])
                     content = message.get("content", [])
                     if isinstance(content, list):
                         for block in content:
@@ -667,9 +671,21 @@ class ClaudeAdapter(ProviderAdapter):
             raise ProviderError("Claude result did not contain non-empty text")
         if not saw_safe_init:
             raise ProviderError("Claude output omitted the safe init attestation")
-        actual = actual_models[-1] if actual_models else requested_model
+        if authoring_models:
+            actual = authoring_models[-1]
+        elif actual_models:
+            actual = actual_models[-1]
+        else:
+            actual = requested_model
         if not actual.lower().startswith("claude"):
             raise ProviderError(f"Claude adapter reported a non-Claude model: {actual}")
+        # Same-vendor is not enough: the contract pins the exact requested model
+        # (primary or its explicit fallback per attempt). A served substitution
+        # (e.g. Haiku for Opus) must fail closed, not silently degrade the plan.
+        if not actual.lower().startswith(requested_model.lower()):
+            raise ProviderError(
+                f"Claude attested model {actual!r} does not match requested {requested_model!r}"
+            )
         return output.strip() + "\n", actual
 
 
@@ -823,4 +839,10 @@ class CodexAdapter(ProviderAdapter):
             raise ProviderError("Codex result did not contain an agent_message")
         if not actual_model.lower().startswith(("gpt", "o")):
             raise ProviderError(f"Codex adapter reported a non-OpenAI model: {actual_model}")
+        # Mirror the Claude adapter: same-vendor is not enough — the served model
+        # must match the exact requested model (primary or explicit fallback).
+        if not actual_model.lower().startswith(requested_model.lower()):
+            raise ProviderError(
+                f"Codex attested model {actual_model!r} does not match requested {requested_model!r}"
+            )
         return messages[-1].strip() + "\n", actual_model
